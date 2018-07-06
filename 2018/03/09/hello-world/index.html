@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="胆固醇的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Cholesterol Blog">
-<meta property="og:url" content="http://kaijun.rocks/index.html">
+<meta name="description" content="强调 分割线 引用 嵌套列表 段落缩进（空格） 字体、字号、颜色 标签   当前目录使用的索引超链的方式   强调1234567**强调文字**__强调文字__*强调文字强调文字*_强调文字_ 强调文字强调文字 强调文字强调文字 强调文字  分割线12---   引用12&amp;gt;引用 &amp;gt;&amp;gt;引用中的引用  引用  引用中的引用   嵌套列表123456- 嵌套列表1 + 嵌套列表2 +">
+<meta property="og:type" content="article">
+<meta property="og:title" content="markdown语法">
+<meta property="og:url" content="http://kaijun.rocks/2018/03/09/hello-world/index.html">
 <meta property="og:site_name" content="Cholesterol Blog">
-<meta property="og:description" content="胆固醇的博客">
+<meta property="og:description" content="强调 分割线 引用 嵌套列表 段落缩进（空格） 字体、字号、颜色 标签   当前目录使用的索引超链的方式   强调1234567**强调文字**__强调文字__*强调文字强调文字*_强调文字_ 强调文字强调文字 强调文字强调文字 强调文字  分割线12---   引用12&amp;gt;引用 &amp;gt;&amp;gt;引用中的引用  引用  引用中的引用   嵌套列表123456- 嵌套列表1 + 嵌套列表2 +">
 <meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2018-07-06T07:57:48.270Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cholesterol Blog">
-<meta name="twitter:description" content="胆固醇的博客">
+<meta name="twitter:title" content="markdown语法">
+<meta name="twitter:description" content="强调 分割线 引用 嵌套列表 段落缩进（空格） 字体、字号、颜色 标签   当前目录使用的索引超链的方式   强调1234567**强调文字**__强调文字__*强调文字强调文字*_强调文字_ 强调文字强调文字 强调文字强调文字 强调文字  分割线12---   引用12&amp;gt;引用 &amp;gt;&amp;gt;引用中的引用  引用  引用中的引用   嵌套列表123456- 嵌套列表1 + 嵌套列表2 +">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://kaijun.rocks/"/>
+  <link rel="canonical" href="http://kaijun.rocks/2018/03/09/hello-world/"/>
 
 
 
 
 
-  <title>Cholesterol Blog</title>
+  <title>markdown语法 | Cholesterol Blog</title>
   
 
 
@@ -143,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,148 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://kaijun.rocks/2018/07/06/Vue中样式覆盖-style的scoped属性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cholesterol">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cholesterol Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/06/Vue中样式覆盖-style的scoped属性/" itemprop="url">Vue中样式覆盖-style的scoped属性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-06T15:01:37+08:00">
-                2018-07-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><p>  &emsp;项目使用Vue和ElementUi，想要覆盖ElementUi默认的输入框样式，新增自定义CSS样式，根据el-input编译后生成的class修改，但是样式并不生效。<br> 后来发现修改<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>标签里的<font color="#4bcc8e">scoped</font>删除就生效了。  </p>
-<h5 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h5><p>  &emsp;<font color="#4bcc8e">scope</font>可以做到样式私有化，及当前样式只作用于当前模块，不会影响全局。</p>
-<p> &emsp;通过查看DOM结构发现：vue通过在DOM结构以及css样式上加唯一不重复的标记，以保证唯一，达到样式私有化模块化的目的。具体的渲染结果是怎样的，通过一个例子来说明。</p>
-<h5 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h5><p> &emsp;一个公共组件button，为了样式模块化，给其加上<font color="#4bcc8e">scoped</font>属性</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//button.vue</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"button-warp"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"button"</span>&gt;</span>text<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.button-warp</span>&#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">display</span><span class="selector-pseudo">:inline-block</span>;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.button</span>&#123;</span></span><br><span class="line"><span class="undefined">        padding: 5px 10px;</span></span><br><span class="line"><span class="undefined">        font-size: 12px;</span></span><br><span class="line"><span class="undefined">        border-radus: 2px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&emsp;浏览器渲染的button组件，其html和css结构如下：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> data-v<span class="number">-2311</span>c06a <span class="built_in">class</span>=<span class="string">"button-warp"</span>&gt;</span><br><span class="line">    &lt;button data-v<span class="number">-2311</span>c06a <span class="built_in">class</span>=<span class="string">"button"</span>&gt;<span class="built_in">text</span>&lt;/button&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.button-warp</span><span class="selector-attr">[data-v-2311c06a]</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>:inline-block;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.button</span><span class="selector-attr">[data-v-2311c06a]</span>&#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">border-radus</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp;从上面的案例可以看出，添加了<font color="#4bcc8e">scoped</font>属性的组件，为了达到组件样式模块化，做了两个处理：</p>
-<ul>
-<li>给 <code>HTML</code>的 <code>DOM</code>节点加一个不重复data属性(形如：data-v-2311c06a)来表示他的唯一性</li>
-<li>在每句 <code>css</code>选择器的末尾（编译后的生成的css语句）加一个当前组件的data属性选择器（如[data-v-2311c06a]）来私有化样式</li>
-</ul>
-<p>&emsp;但这势必影响到css的优先级，<font color="#4bcc8e">scoped</font>虽然达到了组件样式模块化，但是会导致每个样式的<code>权重加重</code>。理论上我们要修改这个样式的话，需要更高的权重去修改，增加了复杂度。</p>
-<h5 id="外部引用"><a href="#外部引用" class="headerlink" title="外部引用"></a>外部引用</h5><p>&emsp;栗子说明了单个组件渲染，当遇到组件相互调用，如果组件内部包含有其他组件，只会给其他组件的最外层标签加上当前组件的data属性。</p>
-<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>&emsp;vue-loader的深度作用选择器。  </p>
-<p>&emsp;在vue.js中，<code>&lt;style scoped&gt;</code>的作用域在本<code>html</code>页面，<code>&lt;style&gt;</code>样式的作用域则是全局（即所有html页面），由于我把其中一个html页面的<code>&lt;style scoped&gt;</code><font color="#4bcc8e">scoped</font>去掉，这个页面的样式就变成了全局样式，当其它页面和这些全局样式重<code>class</code>名时，样式会被覆盖（vue默认全局样式覆盖局部样式），这样就导致当前页面定义样式影响到全局样式。</p>
-<p>&emsp;如何在<code>&lt;style scoped&gt;</code>局部样式中覆盖全局样式：父组件cssName+ /deep/+第三方库需要更改的cssName</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">比如修改<span class="class"><span class="keyword">class</span>为<span class="title">el</span>-<span class="title">input__inner</span>的元素，</span></span><br><span class="line">它的父<span class="class"><span class="keyword">class</span>为<span class="title">input_percent</span>，</span></span><br><span class="line">则在style中写入input_percent <span class="regexp">/deep/</span> .el-input__inner &#123;&#125;即可</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -388,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/09/hello-world/" itemprop="url">markdown语法</a></h1>
+          <h1 class="post-title" itemprop="name headline">markdown语法</h1>
         
 
         <div class="post-meta">
@@ -440,9 +299,7 @@
       
 
       
-        
-          
-            <ul>
+        <ul>
 <li><a href="#1">强调</a></li>
 <li><a href="#2">分割线</a></li>
 <li><a href="#3">引用</a></li>
@@ -509,8 +366,6 @@
 <h4 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h4><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">行内标签`</span><br></pre></td></tr></table></figure>
 <p>这是一个有颜色的<code>标签</code></p>
 
-          
-        
       
     </div>
     
@@ -527,12 +382,28 @@
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/06/Vue中样式覆盖-style的scoped属性/" rel="prev" title="Vue中样式覆盖-style的scoped属性">
+                Vue中样式覆盖-style的scoped属性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -542,10 +413,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -553,6 +425,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -573,8 +449,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -625,6 +510,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#强调"><span class="nav-number">1.</span> <span class="nav-text">强调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分割线"><span class="nav-number">2.</span> <span class="nav-text">分割线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用"><span class="nav-number">3.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套列表"><span class="nav-number">4.</span> <span class="nav-text">嵌套列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#段落缩进"><span class="nav-number">5.</span> <span class="nav-text">段落缩进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字体、字号、颜色"><span class="nav-number">6.</span> <span class="nav-text">字体、字号、颜色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标签"><span class="nav-number">7.</span> <span class="nav-text">标签</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -758,6 +659,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
