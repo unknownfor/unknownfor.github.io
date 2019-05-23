@@ -1,4 +1,135 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="胆固醇的博客"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>元素水平垂直居中 - Cholesterol Blog</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/unknownfor"><span>Github</span></a></li><li><a href="https://weibo.com/kkyoya"><span>weibo</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">元素水平垂直居中</h1><ul class="meta"><li><i class="icon icon-author"></i>Cholesterol</li><li><i class="icon icon-clock"></i>25 Minutes</li><li><i class="icon icon-calendar"></i>July 9, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><ul>
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="元素水平垂直居中"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://kaijun.rocks/2018/07/09/元素水平垂直居中/"/>
+
+
+<meta name="description" content="方法一：position加margin 方法二： diaplay:table-cell 方法三：position加 transform 方法四：flex;align-items: center;justify-content: center 方法五：display:flex;margin:auto 方法六：transfer -50% 方法七：兼容低版本浏览器，不固定宽高  示例图  1.posi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="元素水平垂直居中">
+<meta property="og:url" content="http://kaijun.rocks/2018/07/09/元素水平垂直居中/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="方法一：position加margin 方法二： diaplay:table-cell 方法三：position加 transform 方法四：flex;align-items: center;justify-content: center 方法五：display:flex;margin:auto 方法六：transfer -50% 方法七：兼容低版本浏览器，不固定宽高  示例图  1.posi">
+<meta property="og:locale" content="ch">
+<meta property="og:image" content="http://vky-test-oss.inboyu.com/upload/39e79077-c1de-6d5b-a697-c17158ad3ada.png">
+<meta property="og:updated_time" content="2018-07-09T09:58:10.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="元素水平垂直居中">
+<meta name="twitter:description" content="方法一：position加margin 方法二： diaplay:table-cell 方法三：position加 transform 方法四：flex;align-items: center;justify-content: center 方法五：display:flex;margin:auto 方法六：transfer -50% 方法七：兼容低版本浏览器，不固定宽高  示例图  1.posi">
+<meta name="twitter:image" content="http://vky-test-oss.inboyu.com/upload/39e79077-c1de-6d5b-a697-c17158ad3ada.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 元素水平垂直居中 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          元素水平垂直居中
+        
+      </h1>
+
+      <time class="post-time">
+          Jul 09 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <ul>
 <li><a href="#1">方法一：position加margin</a></li>
 <li><a href="#2">方法二： diaplay:table-cell</a></li>
 <li><a href="#3">方法三：position加 transform</a></li>
@@ -28,16 +159,82 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- <span class="selector-tag">html</span> --&gt;</span><br><span class="line">&lt;<span class="selector-tag">div</span> class=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">div</span> class=<span class="string">"child"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* css */</span></span><br><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">30%</span>;</span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">text-align</span>:center;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#393</span>;</span><br><span class="line">    <span class="attribute">color</span>:<span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">transform</span>: translate(-<span class="number">50%</span>, -<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><span id="7"><span></span></span></p>
 <h4 id="7-高宽不定"><a href="#7-高宽不定" class="headerlink" title="7.高宽不定"></a>7.高宽不定</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- <span class="selector-tag">html</span> --&gt;</span><br><span class="line">&lt;<span class="selector-tag">div</span> class=<span class="string">"table"</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">div</span> class=<span class="string">"tableCell"</span>&gt;</span><br><span class="line">        &lt;<span class="selector-tag">div</span> class=<span class="string">"content"</span>&gt;不固定宽高，自适应&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*css*/</span></span><br><span class="line"><span class="selector-class">.table</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;<span class="comment">/*高度值不能少*/</span></span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;<span class="comment">/*宽度值不能少*/</span></span><br><span class="line">    <span class="attribute">display</span>: table;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">float</span>:left;</span><br><span class="line">    <span class="attribute">background</span>: yellow;</span><br><span class="line">&#125;      </span><br><span class="line"> </span><br><span class="line"><span class="selector-class">.tableCell</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: table-cell;</span><br><span class="line">    <span class="attribute">vertical-align</span>: middle;</span><br><span class="line">    <span class="attribute">text-align</span>: center;        </span><br><span class="line">    *<span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    *<span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    *<span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">    *<span class="attribute">position</span>:relative;</span><br><span class="line">    *<span class="attribute">top</span>: -<span class="number">50%</span>;</span><br><span class="line">    *<span class="attribute">left</span>: -<span class="number">50%</span>;</span><br><span class="line">     <span class="attribute">background</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</div><div class="article-meta" style="max-width:800px"></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjvz2oper00043wv3kjqz2a8p" data-title="元素水平垂直居中" data-url="http://kaijun.rocks/2018/07/09/元素水平垂直居中/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/07/18/Element日期选择组件时间选择限定/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/07/06/Vue中样式覆盖-style的scoped属性/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/unknownfor" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/kkyoya" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a title="Wechat" target="_blank"><i class="icon icon-wechat"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2019 Cholesterol Blog<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/unknownfor" target="_blank">Cholesterol</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/07/18/Element日期选择组件时间选择限定/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Element日期选择组件时间选择限定</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/07/06/Vue中样式覆盖-style的scoped属性/">
+        <span class="next-text nav-default">Vue中样式覆盖-style的scoped属性</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">Cholesterol.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

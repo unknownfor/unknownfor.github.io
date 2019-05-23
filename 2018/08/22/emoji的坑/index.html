@@ -1,4 +1,136 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="胆固醇的博客"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>emoji的坑 - Cholesterol Blog</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/unknownfor"><span>Github</span></a></li><li><a href="https://weibo.com/kkyoya"><span>weibo</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">emoji的坑</h1><ul class="meta"><li><i class="icon icon-author"></i>Cholesterol</li><li><i class="icon icon-clock"></i>6 Minutes</li><li><i class="icon icon-calendar"></i>August 22, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从毕业以来，基本就一直在做移动端，但是一直就关于移动端的开发，各种适配问题的解决，在日常搬砖中处理了就过了，也没有把东西都沉淀下来，觉得甚是寒颜。现就一个小bug，让我们来了解一下我们天天都在用的emoji，对于开发来说，是一个怎么样的存在。</span><br></pre></td></tr></table></figure>
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="emoji的坑"/>
+
+
+
+
+  <meta name="keywords" content="移动开发,emoji," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://kaijun.rocks/2018/08/22/emoji的坑/"/>
+
+
+<meta name="description" content="1从毕业以来，基本就一直在做移动端，但是一直就关于移动端的开发，各种适配问题的解决，在日常搬砖中处理了就过了，也没有把东西都沉淀下来，觉得甚是寒颜。现就一个小bug，让我们来了解一下我们天天都在用的emoji，对于开发来说，是一个怎么样的存在。 背景之前在做一个留言功能时，发现在其中一台安卓5.0的手机上，输入emoji糊掉了，成了如下这样的情况  这是skr啥玩意儿呀。 与是我又试了好几个手机，">
+<meta name="keywords" content="移动开发,emoji">
+<meta property="og:type" content="article">
+<meta property="og:title" content="emoji的坑">
+<meta property="og:url" content="http://kaijun.rocks/2018/08/22/emoji的坑/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="1从毕业以来，基本就一直在做移动端，但是一直就关于移动端的开发，各种适配问题的解决，在日常搬砖中处理了就过了，也没有把东西都沉淀下来，觉得甚是寒颜。现就一个小bug，让我们来了解一下我们天天都在用的emoji，对于开发来说，是一个怎么样的存在。 背景之前在做一个留言功能时，发现在其中一台安卓5.0的手机上，输入emoji糊掉了，成了如下这样的情况  这是skr啥玩意儿呀。 与是我又试了好几个手机，">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2019-05-23T03:47:08.941Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="emoji的坑">
+<meta name="twitter:description" content="1从毕业以来，基本就一直在做移动端，但是一直就关于移动端的开发，各种适配问题的解决，在日常搬砖中处理了就过了，也没有把东西都沉淀下来，觉得甚是寒颜。现就一个小bug，让我们来了解一下我们天天都在用的emoji，对于开发来说，是一个怎么样的存在。 背景之前在做一个留言功能时，发现在其中一台安卓5.0的手机上，输入emoji糊掉了，成了如下这样的情况  这是skr啥玩意儿呀。 与是我又试了好几个手机，">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> emoji的坑 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          emoji的坑
+        
+      </h1>
+
+      <time class="post-time">
+          Aug 22 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从毕业以来，基本就一直在做移动端，但是一直就关于移动端的开发，各种适配问题的解决，在日常搬砖中处理了就过了，也没有把东西都沉淀下来，觉得甚是寒颜。现就一个小bug，让我们来了解一下我们天天都在用的emoji，对于开发来说，是一个怎么样的存在。</span><br></pre></td></tr></table></figure>
 <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>之前在做一个留言功能时，发现在其中一台安卓5.0的手机上，输入emoji糊掉了，成了如下这样的情况 </p>
 <p>这是skr啥玩意儿呀。</p>
 <p>与是我又试了好几个手机，ios都没有问题，甚至一台安卓机中之霸（安卓4.0），随便进个页面都要加载十几秒的手机都没有问题，是乱码了吗？</p>
@@ -50,16 +182,84 @@
 <p>所以不同的厂商以及不同的系统，甚至浏览器、浏览器版本以及系统字体等，对emoji的支持程度与兼容性是不一样的。比如同一个emoji笑脸表情，在ios和安卓上显示的效果也不一样。为了统一emoji表情，很多公司都有自己的一套emoji mapping，来做Unicode码与emoji表情的映射。</p>
 <hr>
 <h4 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h4><p>移动端开发总会遇到各种问题，有时候做兼容也会遇到无法完全兼容两头的情况，这时只能放弃受众更小，选择兼容影响面、严重性更大的方案了。在解决问题的有时候深究下去，也会收获很多。</p>
-</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动开发-emoji/">移动开发 emoji</a><span class="tag-list-count">1</span></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjvz2ops100083wv3ppxzwpch" data-title="emoji的坑" data-url="http://kaijun.rocks/2018/08/22/emoji的坑/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/07/18/Element日期选择组件时间选择限定/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/unknownfor" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/kkyoya" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a title="Wechat" target="_blank"><i class="icon icon-wechat"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2019 Cholesterol Blog<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/unknownfor" target="_blank">Cholesterol</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/移动开发/">移动开发</a>
+		  
+			<a href="/tags/emoji/">emoji</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/07/18/Element日期选择组件时间选择限定/">
+        <span class="next-text nav-default">Element日期选择组件时间选择限定</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">Cholesterol.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

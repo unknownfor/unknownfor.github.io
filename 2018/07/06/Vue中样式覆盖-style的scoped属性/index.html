@@ -1,4 +1,136 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="胆固醇的博客"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>Vue中样式覆盖-style的scoped属性 - Cholesterol Blog</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/unknownfor"><span>Github</span></a></li><li><a href="https://weibo.com/kkyoya"><span>weibo</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">Vue中样式覆盖-style的scoped属性</h1><ul class="meta"><li><i class="icon icon-author"></i>Cholesterol</li><li><i class="icon icon-clock"></i>8 Minutes</li><li><i class="icon icon-calendar"></i>July 6, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><p>  &emsp;项目使用Vue和ElementUi，想要覆盖ElementUi默认的输入框样式，新增自定义CSS样式，根据el-input编译后生成的class修改，但是样式并不生效。<br> 后来发现修改<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Vue中样式覆盖-style的scoped属性"/>
+
+
+
+
+  <meta name="keywords" content="Vue," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://kaijun.rocks/2018/07/06/Vue中样式覆盖-style的scoped属性/"/>
+
+
+<meta name="description" content="背景  &amp;emsp;项目使用Vue和ElementUi，想要覆盖ElementUi默认的输入框样式，新增自定义CSS样式，根据el-input编译后生成的class修改，但是样式并不生效。 后来发现修改1&amp;lt;style type=&quot;text/css&quot; scoped&amp;gt;&amp;lt;/style&amp;gt; 标签里的scoped删除就生效了。   原因  &amp;emsp;scope可以做到样式私有化，及当">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue中样式覆盖-style的scoped属性">
+<meta property="og:url" content="http://kaijun.rocks/2018/07/06/Vue中样式覆盖-style的scoped属性/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="背景  &amp;emsp;项目使用Vue和ElementUi，想要覆盖ElementUi默认的输入框样式，新增自定义CSS样式，根据el-input编译后生成的class修改，但是样式并不生效。 后来发现修改1&amp;lt;style type=&quot;text/css&quot; scoped&amp;gt;&amp;lt;/style&amp;gt; 标签里的scoped删除就生效了。   原因  &amp;emsp;scope可以做到样式私有化，及当">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2019-05-23T03:53:10.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue中样式覆盖-style的scoped属性">
+<meta name="twitter:description" content="背景  &amp;emsp;项目使用Vue和ElementUi，想要覆盖ElementUi默认的输入框样式，新增自定义CSS样式，根据el-input编译后生成的class修改，但是样式并不生效。 后来发现修改1&amp;lt;style type=&quot;text/css&quot; scoped&amp;gt;&amp;lt;/style&amp;gt; 标签里的scoped删除就生效了。   原因  &amp;emsp;scope可以做到样式私有化，及当">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Vue中样式覆盖-style的scoped属性 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Vue中样式覆盖-style的scoped属性
+        
+      </h1>
+
+      <time class="post-time">
+          Jul 06 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><p>  &emsp;项目使用Vue和ElementUi，想要覆盖ElementUi默认的输入框样式，新增自定义CSS样式，根据el-input编译后生成的class修改，但是样式并不生效。<br> 后来发现修改<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>标签里的<font color="#4bcc8e">scoped</font>删除就生效了。  </p>
 <h5 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h5><p>  &emsp;<font color="#4bcc8e">scope</font>可以做到样式私有化，及当前样式只作用于当前模块，不会影响全局。</p>
 <p> &emsp;通过查看DOM结构发现：vue通过在DOM结构以及css样式上加唯一不重复的标记，以保证唯一，达到样式私有化模块化的目的。具体的渲染结果是怎样的，通过一个例子来说明。</p>
@@ -18,16 +150,88 @@
 <p>&emsp;在vue.js中，<code>&lt;style scoped&gt;</code>的作用域在本<code>html</code>页面，<code>&lt;style&gt;</code>样式的作用域则是全局（即所有html页面），由于我把其中一个html页面的<code>&lt;style scoped&gt;</code><font color="#4bcc8e">scoped</font>去掉，这个页面的样式就变成了全局样式，当其它页面和这些全局样式重<code>class</code>名时，样式会被覆盖（vue默认全局样式覆盖局部样式），这样就导致当前页面定义样式影响到全局样式。</p>
 <p>&emsp;如何在<code>&lt;style scoped&gt;</code>局部样式中覆盖全局样式：父组件cssName+ /deep/+第三方库需要更改的cssName</p>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">比如修改<span class="class"><span class="keyword">class</span>为<span class="title">el</span>-<span class="title">input__inner</span>的元素，</span></span><br><span class="line">它的父<span class="class"><span class="keyword">class</span>为<span class="title">input_percent</span>，</span></span><br><span class="line">则在style中写入input_percent <span class="regexp">/deep/</span> .el-input__inner &#123;&#125;即可</span><br></pre></td></tr></table></figure>
-</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-ElementUi-scoped/">Vue ElementUi scoped</a><span class="tag-list-count">1</span></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjvz2ope200003wv30xvdrors" data-title="Vue中样式覆盖-style的scoped属性" data-url="http://kaijun.rocks/2018/07/06/Vue中样式覆盖-style的scoped属性/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/07/09/元素水平垂直居中/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/03/09/hello-world/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/unknownfor" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/kkyoya" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a title="Wechat" target="_blank"><i class="icon icon-wechat"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2019 Cholesterol Blog<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/unknownfor" target="_blank">Cholesterol</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/Vue/">Vue</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/07/09/元素水平垂直居中/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">元素水平垂直居中</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/03/09/markdown语法/">
+        <span class="next-text nav-default">markdown语法</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">Cholesterol.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
