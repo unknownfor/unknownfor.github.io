@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="手动实现all、bind、apply"/>
+
+
+
+
+  <meta name="keywords" content="前端,面试," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2018/09/23/手动实现all、bind、apply/"/>
+
+
+<meta name="description" content="call原生call 123456789function test(arg1, arg2) &amp;#123;  console.log(arg1, arg2)  console.log(this.a, this.b)&amp;#125;run.call(&amp;#123;  a: &apos;a&apos;,  b: &apos;b&apos;&amp;#125;, 1, 2) 在实现的过程有个关键： 如果一个函数作为一个对象的属性，那么通过对象的.运算符调用此">
+<meta name="keywords" content="前端,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手动实现all、bind、apply">
+<meta property="og:url" content="http://unknownfor.github.io/2018/09/23/手动实现all、bind、apply/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="call原生call 123456789function test(arg1, arg2) &amp;#123;  console.log(arg1, arg2)  console.log(this.a, this.b)&amp;#125;run.call(&amp;#123;  a: &apos;a&apos;,  b: &apos;b&apos;&amp;#125;, 1, 2) 在实现的过程有个关键： 如果一个函数作为一个对象的属性，那么通过对象的.运算符调用此">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2019-05-23T10:33:56.600Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手动实现all、bind、apply">
+<meta name="twitter:description" content="call原生call 123456789function test(arg1, arg2) &amp;#123;  console.log(arg1, arg2)  console.log(this.a, this.b)&amp;#125;run.call(&amp;#123;  a: &apos;a&apos;,  b: &apos;b&apos;&amp;#125;, 1, 2) 在实现的过程有个关键： 如果一个函数作为一个对象的属性，那么通过对象的.运算符调用此">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 手动实现all、bind、apply - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          手动实现all、bind、apply
+        
+      </h1>
+
+      <time class="post-time">
+          Sep 23 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h6 id="call"><a href="#call" class="headerlink" title="call"></a>call</h6><p>原生call</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arg1, arg2)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">run.call(&#123;</span><br><span class="line">  a: <span class="string">'a'</span>,</span><br><span class="line">  b: <span class="string">'b'</span></span><br><span class="line">&#125;, <span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>在实现的过程有个关键：</p>
+<p>如果一个函数作为一个对象的属性，那么通过对象的.运算符调用此函数，<strong>this</strong> 就是此对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'a'</span>,</span><br><span class="line">  b: <span class="string">'b'</span>,</span><br><span class="line">  test: <span class="function"><span class="keyword">function</span> (<span class="params">arg1, arg2</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arg1, arg2)</span><br><span class="line">    <span class="comment">// this.a 就是 a; this.b 就是 b</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b) </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.test(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h6 id="手动模拟call"><a href="#手动模拟call" class="headerlink" title="手动模拟call"></a>手动模拟call</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.call2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 默认上下文是window</span></span><br><span class="line">  context = context || <span class="built_in">window</span></span><br><span class="line">  <span class="comment">// 保存默认的fn</span></span><br><span class="line">  <span class="keyword">const</span> &#123; fn &#125; = context</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 前面讲的关键，将函数本身作为对象context的属性调用，自动绑定this</span></span><br><span class="line">  context.fn = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line">  <span class="keyword">const</span> result = context.fn(...args)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 恢复默认的fn</span></span><br><span class="line">  context.fn = fn</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下是测试代码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arg1, arg2)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test.call2(&#123;</span><br><span class="line">  a: <span class="string">'a'</span>,</span><br><span class="line">  b: <span class="string">'b'</span></span><br><span class="line">&#125;, <span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h6 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h6><p><code>bind</code>有两个特点：</p>
+<ul>
+<li>本身返回一个全新的函数，所以需要考虑new的清空</li>
+<li>可以保留参数，内部实现了参数的拼接</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.bind2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> that = <span class="keyword">this</span></span><br><span class="line">  <span class="comment">// 保留之前的参数，为了下面的参数拼接</span></span><br><span class="line">  <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 如果被new创建实例，不会被改变上下文！</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> F) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> that(...args, ...arguments)</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// args.concat(...arguments): 拼接之前和现在的参数</span></span><br><span class="line">    <span class="comment">// 注意：arguments是个类Array的Object, 用解构运算符..., 直接拿值拼接</span></span><br><span class="line">    <span class="keyword">return</span> that.apply(context, args.concat(...arguments))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 以下是测试代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arg1, arg2)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> test2 = test.bind2(&#123;</span><br><span class="line">  a: <span class="string">'a'</span>,</span><br><span class="line">  b: <span class="string">'b'</span></span><br><span class="line">&#125;, <span class="number">1</span>) <span class="comment">// 参数 1</span></span><br><span class="line"></span><br><span class="line">test2(<span class="number">2</span>) <span class="comment">// 参数 2</span></span><br></pre></td></tr></table></figure>
+<h6 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h6><p>apply和call实现类似，只是传入的参数形式是数组形式，而不是逗号分隔的参数序列。</p>
+<p>因此，借助es6提供的…运算符，就可以很方便的实现数组和参数序列的转化。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.apply2 = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  context = context || <span class="built_in">window</span></span><br><span class="line">  <span class="keyword">const</span> &#123; fn &#125; = context</span><br><span class="line"></span><br><span class="line">  context.fn = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">let</span> result</span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(<span class="built_in">arguments</span>[<span class="number">1</span>])) &#123;</span><br><span class="line">    <span class="comment">// 通过...运算符将数组转换为用逗号分隔的参数序列</span></span><br><span class="line">    result = context.fn(...arguments[<span class="number">1</span>])</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    result = context.fn()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  context.fn = fn</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 以下是测试代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">arg1, arg2</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(arg1, arg2)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a, <span class="keyword">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test.apply2(&#123;</span><br><span class="line">  a: <span class="string">'a'</span>,</span><br><span class="line">  b: <span class="string">'b'</span></span><br><span class="line">&#125;, [<span class="number">1</span>, <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/前端/">前端</a>
+		  
+			<a href="/tags/面试/">面试</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/09/09/记录hexo替换主题/">
+        <span class="next-text nav-default">记录hexo替换主题</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2019
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
