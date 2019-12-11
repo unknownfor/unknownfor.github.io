@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="学习单元测试 - Jest"/>
+
+
+
+
+  <meta name="keywords" content="学习,前端,单元测试," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5" />
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2018/05/04/学习单元测试 - Jest/"/>
+
+
+<meta name="description" content="现在系统功能趋于稳定，想着接入单元测试使用一下。尝试着为公共组件和公共方法编写覆盖全面的单元测试。 单元测试case部署在tests/unit文件夹中，使用Jest编写。可以测试引入的公共方法，也可以测试一个单文件组件。建议按照代码组织结构来编写对应的单元测试case。 使用npm run unit来运行单元测试，测试结果会在命令行中显示。在构建测试环境的时候会自动运行单元测试，如果单元测试存在未">
+<meta name="keywords" content="学习,前端,单元测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习单元测试 - Jest">
+<meta property="og:url" content="http://unknownfor.github.io/2018/05/04/学习单元测试 - Jest/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="现在系统功能趋于稳定，想着接入单元测试使用一下。尝试着为公共组件和公共方法编写覆盖全面的单元测试。 单元测试case部署在tests/unit文件夹中，使用Jest编写。可以测试引入的公共方法，也可以测试一个单文件组件。建议按照代码组织结构来编写对应的单元测试case。 使用npm run unit来运行单元测试，测试结果会在命令行中显示。在构建测试环境的时候会自动运行单元测试，如果单元测试存在未">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2019-12-11T09:37:31.081Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习单元测试 - Jest">
+<meta name="twitter:description" content="现在系统功能趋于稳定，想着接入单元测试使用一下。尝试着为公共组件和公共方法编写覆盖全面的单元测试。 单元测试case部署在tests/unit文件夹中，使用Jest编写。可以测试引入的公共方法，也可以测试一个单文件组件。建议按照代码组织结构来编写对应的单元测试case。 使用npm run unit来运行单元测试，测试结果会在命令行中显示。在构建测试环境的时候会自动运行单元测试，如果单元测试存在未">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 学习单元测试 - Jest - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          学习单元测试 - Jest
+        
+      </h1>
+
+      <time class="post-time">
+          May 04 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>现在系统功能趋于稳定，想着接入单元测试使用一下。尝试着为公共组件和公共方法编写覆盖全面的单元测试。</p>
+<p>单元测试case部署在<code>tests/unit</code>文件夹中，使用<code>Jest</code>编写。可以测试引入的公共方法，也可以测试一个单文件组件。建议按照代码组织结构来编写对应的单元测试case。</p>
+<p>使用<code>npm run unit</code>来运行单元测试，测试结果会在命令行中显示。在构建<strong>测试环境</strong>的时候会自动运行单元测试，如果单元测试存在未通过的case，则构建会失败并终止。构建beta环境和生产环境暂时不会运行单元测试。</p>
+<p>一个简单的关于为数字加入千位分隔符的方法的单元测试：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'Utils suits'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  it(<span class="string">'should add commas for numbers'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> fn = Utils.addNumberCommas</span><br><span class="line">    expect(fn(<span class="number">123</span>)).toBe(<span class="string">'123'</span>)</span><br><span class="line">    expect(fn(<span class="number">12345</span>)).toBe(<span class="string">'12,345'</span>)</span><br><span class="line">    expect(fn(<span class="number">1234567.89</span>)).toBe(<span class="string">'1,234,567.89'</span>)</span><br><span class="line">    expect(fn(<span class="number">-1234567.89</span>)).toBe(<span class="string">'-1,234,567.89'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://jestjs.io/" target="_blank" rel="noopener">Jest</a></li>
+<li><a href="https://cn.vuejs.org/v2/guide/unit-testing.html" target="_blank" rel="noopener">Vue单元测试</a></li>
+<li><a href="https://vue-test-utils.vuejs.org/zh/" target="_blank" rel="noopener">Vue_Test_Utils</a></li>
+</ul>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/学习/">学习</a>
+		  
+			<a href="/tags/前端/">前端</a>
+		  
+			<a href="/tags/单元测试/">单元测试</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/03/29/请求与封装/">
+        <span class="next-text nav-default">请求封装</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2019
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
