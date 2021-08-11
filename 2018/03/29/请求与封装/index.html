@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="请求封装">
+
+
+
+
+  <meta name="keywords" content="前端,VUE,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2018/03/29/请求与封装/">
+
+
+<meta name="description" content="目前后台是微服务架构，所以不同的业务模块会请求到不同的地址，而不同的环境（测试/beta/生产）会携带不同的请求头进行区分，同时每个请求都有固定的参数携带，所以需要对请求进行统一的封装和管理。在这里记录一下封装请求的代码。 目前请求统一封装至 services 文件夹，按照后台模块名进行区分。每个请求都会封装成一个Promise，使用async/await进行异步请求管理。注意同时发起的多个请求使">
+<meta name="keywords" content="前端,VUE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="请求封装">
+<meta property="og:url" content="http://unknownfor.github.io/2018/03/29/请求与封装/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="目前后台是微服务架构，所以不同的业务模块会请求到不同的地址，而不同的环境（测试/beta/生产）会携带不同的请求头进行区分，同时每个请求都有固定的参数携带，所以需要对请求进行统一的封装和管理。在这里记录一下封装请求的代码。 目前请求统一封装至 services 文件夹，按照后台模块名进行区分。每个请求都会封装成一个Promise，使用async/await进行异步请求管理。注意同时发起的多个请求使">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2019-12-11T09:38:41.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="请求封装">
+<meta name="twitter:description" content="目前后台是微服务架构，所以不同的业务模块会请求到不同的地址，而不同的环境（测试/beta/生产）会携带不同的请求头进行区分，同时每个请求都有固定的参数携带，所以需要对请求进行统一的封装和管理。在这里记录一下封装请求的代码。 目前请求统一封装至 services 文件夹，按照后台模块名进行区分。每个请求都会封装成一个Promise，使用async/await进行异步请求管理。注意同时发起的多个请求使">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 请求封装 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          请求封装
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 29 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>目前后台是微服务架构，所以不同的业务模块会请求到不同的地址，而不同的环境（测试/beta/生产）会携带不同的请求头进行区分，同时每个请求都有固定的参数携带，所以需要对请求进行统一的封装和管理。在这里记录一下封装请求的代码。</p>
+<p>目前请求统一封装至 services 文件夹，按照后台模块名进行区分。每个请求都会封装成一个Promise，使用async/await进行异步请求管理。注意同时发起的多个请求使用Promise.all封装为一个新的Promise进行管理，防止串行请求影响性能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> resp = <span class="keyword">await</span> OpService.getProjects()</span><br><span class="line"><span class="built_in">console</span>.log(resp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> requests = [UcService.getCurrentDeptLoginInfo(), UcService.getDepts()]</span><br><span class="line"><span class="keyword">let</span> [currentDeptResp, deptsResp] = <span class="keyword">await</span> <span class="built_in">Promise</span>.all(requests)</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><ul>
+<li>utils/request.js</li>
+<li>封装请求</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//module区分模块，模块名称封装在 【src/config/module.js】里</span></span><br><span class="line"><span class="comment">//path 是请求的文件路径</span></span><br><span class="line"><span class="comment">//data 是传入数据</span></span><br><span class="line"><span class="comment">//noAccessToken 大部分时间都是false ，极端情况 比如登陆、投诉之类的不需要</span></span><br><span class="line">  <span class="keyword">get</span>(module, path, data, noAccessToken = false) &#123;</span><br><span class="line">    <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> config = <span class="keyword">await</span> BaseService.getConfig()</span><br><span class="line">        <span class="keyword">let</span> client = <span class="keyword">await</span> BaseService.getClient(<span class="built_in">module</span>)</span><br><span class="line">        <span class="keyword">let</span> services = config.services[<span class="built_in">module</span>]</span><br><span class="line">        <span class="keyword">let</span> resp = <span class="keyword">await</span> client.get(makeUrl(services.host, path, data, noAccessToken), &#123;</span><br><span class="line">          headers: &#123;</span><br><span class="line">            accept: <span class="string">'application/json'</span>,</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        resolve(resp)</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="keyword">await</span> handleError(e)</span><br><span class="line">        reject(e)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> p</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><ul>
+<li>eg: src\services.js</li>
+<li>封装请求</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 登录后获取当前基础信息接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">//R是在build/webpack.base.conf.js里声明过的封装方法</span></span><br><span class="line"> <span class="comment">//里面包含了基础的请求信息</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCurrentDeptLoginInfo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">res, rej</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> resp = <span class="keyword">await</span> R.get(Config.module.UC, <span class="string">'/user/get_current_dept_login_info'</span>)</span><br><span class="line">      res(resp)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      rej(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> p</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="3-应用请求"><a href="#3-应用请求" class="headerlink" title="3 应用请求"></a>3 应用请求</h1><ul>
+<li>src\app.js</li>
+<li>调用封装的方法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> handleDeptCommand(id) &#123;</span><br><span class="line">   Loading.show()</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">     <span class="keyword">let</span> resp = <span class="keyword">await</span> UserService.switchDept(id)</span><br><span class="line">     <span class="keyword">if</span> (resp.errcode == <span class="number">0</span>) &#123;</span><br><span class="line">       <span class="keyword">let</span> resp2 = <span class="keyword">await</span> UserService.getCurrentDeptLoginInfo()</span><br><span class="line">       BaseService.setBasicData(resp2.info)</span><br><span class="line">       <span class="keyword">this</span>._renderBasicData(resp2.info)</span><br><span class="line">       <span class="keyword">this</span>.$router.push(<span class="string">'/'</span>)</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="built_in">console</span>.error(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'errcode: '</span> + resp.errcode))</span><br><span class="line">     &#125;</span><br><span class="line">   &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">     <span class="built_in">console</span>.error(e)</span><br><span class="line">   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">     Loading.hide()</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/前端/">前端</a>
+		  
+			<a href="/tags/VUE/">VUE</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/04/学习单元测试 - Jest/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">学习单元测试 - Jest</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2018/03/13/前端页面内权限控制规范/">
+        <span class="next-text nav-default">前端页面内权限控制规范</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2021
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
