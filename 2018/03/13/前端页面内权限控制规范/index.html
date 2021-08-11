@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="">
-  <head>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
     
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
-  <meta name="description" content="前端页面内权限控制规范"/>
+  <meta name="description" content="前端页面内权限控制规范">
 
 
 
 
-  <meta name="keywords" content="前端,开发文档," />
+  <meta name="keywords" content="前端,开发文档,">
 
 
 
@@ -28,11 +28,11 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
 
 
 
-<link rel="canonical" href="http://unknownfor.github.io/2018/03/13/前端页面内权限控制规范/"/>
+<link rel="canonical" href="http://unknownfor.github.io/2018/03/13/前端页面内权限控制规范/">
 
 
 <meta name="description" content="201809更新v-auth控制弹窗内元素渲染会出现首次渲染成功后，第二次打开弹窗为false的情况，导致权限判断失败，页面样式错位，所以无法在弹窗内使用该方法。 解决方法：因为只需要页面初次加载时判断用户有无功能权限，通过接口查询一次后赋值给data的xx属性，通过属性的值来判断。 12345678910111213async created() &amp;#123;  // do someting">
@@ -49,8 +49,8 @@
 <meta name="twitter:description" content="201809更新v-auth控制弹窗内元素渲染会出现首次渲染成功后，第二次打开弹窗为false的情况，导致权限判断失败，页面样式错位，所以无法在弹窗内使用该方法。 解决方法：因为只需要页面初次加载时判断用户有无功能权限，通过接口查询一次后赋值给data的xx属性，通过属性的值来判断。 12345678910111213async created() &amp;#123;  // do someting">
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5" />
-<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
 
 
@@ -132,7 +132,7 @@
             <div class="post-content">
             <h4 id="201809更新"><a href="#201809更新" class="headerlink" title="201809更新"></a>201809更新</h4><p><code>v-auth</code>控制弹窗内元素渲染会出现首次渲染成功后，第二次打开弹窗为false的情况，导致权限判断失败，页面样式错位，所以无法在弹窗内使用该方法。</p>
 <p>解决方法：因为只需要页面初次加载时判断用户有无功能权限，通过接口查询一次后赋值给data的xx属性，通过属性的值来判断。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">async</span> <span class="title">created</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// do someting</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 查询有无删除调账记录权限</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> valid = <span class="keyword">await</span> <span class="keyword">this</span>.fCheckAuth(<span class="string">'household.HOUSEHOLD_DELSUBJECT'</span>)</span><br><span class="line">    <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">      <span class="keyword">this</span>.show_del = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    console.log(e)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">async</span> <span class="title">created</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="comment">// do someting</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 查询有无删除调账记录权限</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> valid = <span class="keyword">await</span> <span class="keyword">this</span>.fCheckAuth(<span class="string">'household.HOUSEHOLD_DELSUBJECT'</span>)</span><br><span class="line">    <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">      <span class="keyword">this</span>.show_del = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    console.log(e)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 <hr>
 <h1 id="前端页面内权限控制规范"><a href="#前端页面内权限控制规范" class="headerlink" title="前端页面内权限控制规范"></a>前端页面内权限控制规范</h1><p>目前的权限系统支持到动作点的细粒度控制，前端支持前置判断权限从而控制节点的展示与隐藏，执行相关逻辑等。前端通过 mixin 混入权限控制模块进行判断和处理。</p>
 <p>自定义组件需要单独<code>import &#39;@/mixin/auth&#39;</code>，如果是已经引入了<code>@/mixin</code>的页面组件则不需要额外引入该模块。</p>
@@ -237,7 +237,7 @@
     
         2016 -
     
-    2020
+    2021
     <span class="footer-author">胆固醇</span>
 </span>
 

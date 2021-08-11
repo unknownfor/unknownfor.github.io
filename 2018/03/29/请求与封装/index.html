@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="">
-  <head>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
     
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
-  <meta name="description" content="请求封装"/>
+  <meta name="description" content="请求封装">
 
 
 
 
-  <meta name="keywords" content="前端,VUE," />
+  <meta name="keywords" content="前端,VUE,">
 
 
 
@@ -28,11 +28,11 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
 
 
 
-<link rel="canonical" href="http://unknownfor.github.io/2018/03/29/请求与封装/"/>
+<link rel="canonical" href="http://unknownfor.github.io/2018/03/29/请求与封装/">
 
 
 <meta name="description" content="目前后台是微服务架构，所以不同的业务模块会请求到不同的地址，而不同的环境（测试/beta/生产）会携带不同的请求头进行区分，同时每个请求都有固定的参数携带，所以需要对请求进行统一的封装和管理。在这里记录一下封装请求的代码。 目前请求统一封装至 services 文件夹，按照后台模块名进行区分。每个请求都会封装成一个Promise，使用async/await进行异步请求管理。注意同时发起的多个请求使">
@@ -49,8 +49,8 @@
 <meta name="twitter:description" content="目前后台是微服务架构，所以不同的业务模块会请求到不同的地址，而不同的环境（测试/beta/生产）会携带不同的请求头进行区分，同时每个请求都有固定的参数携带，所以需要对请求进行统一的封装和管理。在这里记录一下封装请求的代码。 目前请求统一封装至 services 文件夹，按照后台模块名进行区分。每个请求都会封装成一个Promise，使用async/await进行异步请求管理。注意同时发起的多个请求使">
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5" />
-<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
 
 
@@ -138,7 +138,7 @@
 <li>utils/request.js</li>
 <li>封装请求</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//module区分模块，模块名称封装在 【src/config/module.js】里</span></span><br><span class="line"><span class="comment">//path 是请求的文件路径</span></span><br><span class="line"><span class="comment">//data 是传入数据</span></span><br><span class="line"><span class="comment">//noAccessToken 大部分时间都是false ，极端情况 比如登陆、投诉之类的不需要</span></span><br><span class="line">  get(<span class="built_in">module</span>, path, data, noAccessToken = <span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> config = <span class="keyword">await</span> BaseService.getConfig()</span><br><span class="line">        <span class="keyword">let</span> client = <span class="keyword">await</span> BaseService.getClient(<span class="built_in">module</span>)</span><br><span class="line">        <span class="keyword">let</span> services = config.services[<span class="built_in">module</span>]</span><br><span class="line">        <span class="keyword">let</span> resp = <span class="keyword">await</span> client.get(makeUrl(services.host, path, data, noAccessToken), &#123;</span><br><span class="line">          headers: &#123;</span><br><span class="line">            accept: <span class="string">'application/json'</span>,</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        resolve(resp)</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="keyword">await</span> handleError(e)</span><br><span class="line">        reject(e)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> p</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//module区分模块，模块名称封装在 【src/config/module.js】里</span></span><br><span class="line"><span class="comment">//path 是请求的文件路径</span></span><br><span class="line"><span class="comment">//data 是传入数据</span></span><br><span class="line"><span class="comment">//noAccessToken 大部分时间都是false ，极端情况 比如登陆、投诉之类的不需要</span></span><br><span class="line">  <span class="keyword">get</span>(module, path, data, noAccessToken = false) &#123;</span><br><span class="line">    <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> config = <span class="keyword">await</span> BaseService.getConfig()</span><br><span class="line">        <span class="keyword">let</span> client = <span class="keyword">await</span> BaseService.getClient(<span class="built_in">module</span>)</span><br><span class="line">        <span class="keyword">let</span> services = config.services[<span class="built_in">module</span>]</span><br><span class="line">        <span class="keyword">let</span> resp = <span class="keyword">await</span> client.get(makeUrl(services.host, path, data, noAccessToken), &#123;</span><br><span class="line">          headers: &#123;</span><br><span class="line">            accept: <span class="string">'application/json'</span>,</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        resolve(resp)</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="keyword">await</span> handleError(e)</span><br><span class="line">        reject(e)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> p</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
 <hr>
 <h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><ul>
 <li>eg: src\services.js</li>
@@ -206,7 +206,7 @@
     
         2016 -
     
-    2020
+    2021
     <span class="footer-author">胆固醇</span>
 </span>
 
