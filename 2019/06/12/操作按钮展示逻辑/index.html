@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="操作按钮展示逻辑">
+
+
+
+
+  <meta name="keywords" content="工作笔记,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2019/06/12/操作按钮展示逻辑/">
+
+
+<meta name="description" content="合同申请 接口：/contract-expend/detail status为0 default，默认为新增状态     按钮 状态(data.detail.detail.status)     合同归档 data.detail.detail.hasFileManageTag   保存 0、1   提交 0、1   发起K2审批 14   撤回草稿 14   生成付款单 10   结算合同 10">
+<meta name="keywords" content="工作笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作按钮展示逻辑">
+<meta property="og:url" content="http://unknownfor.github.io/2019/06/12/操作按钮展示逻辑/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="合同申请 接口：/contract-expend/detail status为0 default，默认为新增状态     按钮 状态(data.detail.detail.status)     合同归档 data.detail.detail.hasFileManageTag   保存 0、1   提交 0、1   发起K2审批 14   撤回草稿 14   生成付款单 10   结算合同 10">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2021-08-12T06:47:42.319Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作按钮展示逻辑">
+<meta name="twitter:description" content="合同申请 接口：/contract-expend/detail status为0 default，默认为新增状态     按钮 状态(data.detail.detail.status)     合同归档 data.detail.detail.hasFileManageTag   保存 0、1   提交 0、1   发起K2审批 14   撤回草稿 14   生成付款单 10   结算合同 10">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 操作按钮展示逻辑 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          操作按钮展示逻辑
+        
+      </h1>
+
+      <time class="post-time">
+          Jun 12 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h4 id="合同申请"><a href="#合同申请" class="headerlink" title="合同申请"></a>合同申请</h4><ul>
+<li>接口：/contract-expend/detail</li>
+<li>status为0 default，默认为新增状态</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>状态(data.detail.detail.status)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>合同归档</td>
+<td>data.detail.detail.hasFileManageTag</td>
+</tr>
+<tr>
+<td>保存</td>
+<td>0、1</td>
+</tr>
+<tr>
+<td>提交</td>
+<td>0、1</td>
+</tr>
+<tr>
+<td>发起K2审批</td>
+<td>14</td>
+</tr>
+<tr>
+<td>撤回草稿</td>
+<td>14</td>
+</tr>
+<tr>
+<td>生成付款单</td>
+<td>10</td>
+</tr>
+<tr>
+<td>结算合同</td>
+<td>10</td>
+</tr>
+<tr>
+<td>查看审批流程</td>
+<td>非0状态下都展示</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>data.detail.operation.delete</td>
+</tr>
+<tr>
+<td>作废</td>
+<td>data.detail.operation.abolish</td>
+</tr>
+</tbody>
+</table>
+<h4 id="合同付款单申请"><a href="#合同付款单申请" class="headerlink" title="合同付款单申请"></a>合同付款单申请</h4><ul>
+<li>接口：无</li>
+<li>status为0 默认为新增状态</li>
+<li>url带newId 为重新发起的单据</li>
+</ul>
+<p>区分付款方式</p>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>状态(data.detail.detail.status)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>保存</td>
+<td>0、url带newId、8、10、17、24</td>
+</tr>
+<tr>
+<td>提交</td>
+<td>0、url带newId、5、8、17、24 或者invoiceType为2，且status为10</td>
+</tr>
+<tr>
+<td>发起K2审批</td>
+<td>26、27</td>
+</tr>
+<tr>
+<td>撤回草稿</td>
+<td>26</td>
+</tr>
+<tr>
+<td>冲账</td>
+<td>12、或者invoiceType为1且status为10或者19</td>
+</tr>
+<tr>
+<td>打印封面</td>
+<td>2、3、4、9、15、16、 11, 18, 20, 21, 22, 23, 25、url带newId</td>
+</tr>
+<tr>
+<td>复制&amp;重新发起</td>
+<td>25</td>
+</tr>
+<tr>
+<td>查看审批流程</td>
+<td>非0、非5、非url带newId</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>5、8、10、17、24，以上状态url不能带newId、非invoiceType为1且status为10</td>
+</tr>
+</tbody>
+</table>
+<h4 id="事项申请"><a href="#事项申请" class="headerlink" title="事项申请"></a>事项申请</h4><ul>
+<li>接口：/expend-matter/get-edit-data</li>
+<li>status为0 默认为新增状态</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>状态（data.data.expenditure.status_cn）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>提交</td>
+<td>0、草稿</td>
+</tr>
+<tr>
+<td>保存</td>
+<td>0、草稿</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>0、草稿</td>
+</tr>
+<tr>
+<td>查看审批流程</td>
+<td>!= ‘草稿’ 或者 data.data.showFlag==true</td>
+</tr>
+<tr>
+<td>撤回</td>
+<td>等待审批</td>
+</tr>
+<tr>
+<td>生成付款单</td>
+<td>审批通过且data.data.expenditure.left_apply_amount大于0</td>
+</tr>
+<tr>
+<td>事项已完成</td>
+<td>审批通过</td>
+</tr>
+<tr>
+<td>作废</td>
+<td>审批通过且data.data.expenditure.invoices 小于等于0</td>
+</tr>
+<tr>
+<td>发起k2审批</td>
+<td>未发起K2审批</td>
+</tr>
+<tr>
+<td>撤回到草稿</td>
+<td>未发起K2审批</td>
+</tr>
+</tbody>
+</table>
+<h4 id="事项付款单"><a href="#事项付款单" class="headerlink" title="事项付款单"></a>事项付款单</h4><ul>
+<li>接口：/expend-matter/get-invoice-info</li>
+<li>status为0 默认为新增状态</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>状态（data.data.invoiceStatus）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>提交</td>
+<td>0、url带resend、5、8、10、17、24、!(type为1和status为10)</td>
+</tr>
+<tr>
+<td>保存</td>
+<td>0、url带resend、5</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>5、8、10、17、24、!(type为1和status为10)</td>
+</tr>
+<tr>
+<td>查看审批流程</td>
+<td>!= 5</td>
+<td></td>
+<td>data.data.hasK2.length</td>
+</tr>
+<tr>
+<td>打印封面</td>
+<td>0、1、2、3、4、6、7、9、11、12、13、14、15、16、18、20、21、22、23</td>
+</tr>
+<tr>
+<td>冲账</td>
+<td>type == 1 且 status 10、12、19</td>
+</tr>
+<tr>
+<td>复制&amp;重新发起</td>
+<td>25</td>
+</tr>
+<tr>
+<td>发起k2审批</td>
+<td>26、27</td>
+</tr>
+<tr>
+<td>撤回草稿</td>
+<td>26</td>
+</tr>
+</tbody>
+</table>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/工作笔记/">工作笔记</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2019/07/18/人脸识别门禁功能/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">人脸识别门禁功能</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/05/27/ElementUI和第三方图标库Iconfont/">
+        <span class="next-text nav-default">ElementUI和第三方图标库Iconfont</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2021
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
