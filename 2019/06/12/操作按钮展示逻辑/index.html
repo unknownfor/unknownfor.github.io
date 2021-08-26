@@ -43,7 +43,7 @@
 <meta property="og:site_name" content="Cholesterol">
 <meta property="og:description" content="合同申请 接口：/contract-expend/detail status为0 default，默认为新增状态     按钮 状态(data.detail.detail.status)     合同归档 data.detail.detail.hasFileManageTag   保存 0、1   提交 0、1   发起K2审批 14   撤回草稿 14   生成付款单 10   结算合同 10">
 <meta property="og:locale" content="ch">
-<meta property="og:updated_time" content="2021-08-12T06:47:42.319Z">
+<meta property="og:updated_time" content="2021-08-26T03:38:43.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作按钮展示逻辑">
 <meta name="twitter:description" content="合同申请 接口：/contract-expend/detail status为0 default，默认为新增状态     按钮 状态(data.detail.detail.status)     合同归档 data.detail.detail.hasFileManageTag   保存 0、1   提交 0、1   发起K2审批 14   撤回草稿 14   生成付款单 10   结算合同 10">
@@ -316,9 +316,7 @@
 </tr>
 <tr>
 <td>查看审批流程</td>
-<td>!= 5</td>
-<td></td>
-<td>data.data.hasK2.length</td>
+<td>!= 5 或 data.data.hasK2.length</td>
 </tr>
 <tr>
 <td>打印封面</td>
