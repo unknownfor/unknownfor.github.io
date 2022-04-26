@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="宏任务还是微任务？">
+
+
+
+
+  <meta name="keywords" content="学习,前端,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2021/04/26/宏任务还是微任务？/">
+
+
+<meta name="description" content="概述我们都知道js是一个单线程，里面的的请求方式分为两种，一种是同步请求，一种是异步请求，同步方法先执行完毕，然后再去异步任务队列中查看有没有异步任务，有才会执行。 在JavaScript中，所有的任务都可以分为 同步任务：立即执行的任务，同步任务一般会直接进入到主线程中执行 异步任务：异步执行的任务，比如ajax网络请求，setTimeout定时函数等 常见的宏任务script、setTimeo">
+<meta name="keywords" content="学习,前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="宏任务还是微任务？">
+<meta property="og:url" content="http://unknownfor.github.io/2021/04/26/宏任务还是微任务？/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="概述我们都知道js是一个单线程，里面的的请求方式分为两种，一种是同步请求，一种是异步请求，同步方法先执行完毕，然后再去异步任务队列中查看有没有异步任务，有才会执行。 在JavaScript中，所有的任务都可以分为 同步任务：立即执行的任务，同步任务一般会直接进入到主线程中执行 异步任务：异步执行的任务，比如ajax网络请求，setTimeout定时函数等 常见的宏任务script、setTimeo">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2022-04-26T14:53:21.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="宏任务还是微任务？">
+<meta name="twitter:description" content="概述我们都知道js是一个单线程，里面的的请求方式分为两种，一种是同步请求，一种是异步请求，同步方法先执行完毕，然后再去异步任务队列中查看有没有异步任务，有才会执行。 在JavaScript中，所有的任务都可以分为 同步任务：立即执行的任务，同步任务一般会直接进入到主线程中执行 异步任务：异步执行的任务，比如ajax网络请求，setTimeout定时函数等 常见的宏任务script、setTimeo">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 宏任务还是微任务？ - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          宏任务还是微任务？
+        
+      </h1>
+
+      <time class="post-time">
+          Apr 26 2021
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>我们都知道js是一个单线程，里面的的请求方式分为两种，一种是同步请求，一种是异步请求，同步方法先执行完毕，然后再去异步任务队列中查看有没有异步任务，有才会执行。</p>
+<p>在JavaScript中，所有的任务都可以分为</p>
+<p>同步任务：立即执行的任务，同步任务一般会直接进入到主线程中执行</p>
+<p>异步任务：异步执行的任务，比如<code>ajax</code>网络请求，<code>setTimeout</code>定时函数等</p>
+<h4 id="常见的宏任务"><a href="#常见的宏任务" class="headerlink" title="常见的宏任务"></a>常见的宏任务</h4><p><code>script</code>、<code>setTimeout</code>、<code>setInterval</code>、<code>setImmediate</code></p>
+<h4 id="常见的微任务"><a href="#常见的微任务" class="headerlink" title="常见的微任务"></a>常见的微任务</h4><p>一个需要异步执行的函数，执行时机是在主函数执行结束之后、当前宏任务结束之前</p>
+<p><code>Promise</code>中的then、async、await、<code>process.nextTick</code>（Node.js）、<code>MutationObserver</code>（监听DOM变化的事件）、<code>Object.observe</code>（已废弃；Proxy 对象替代）</p>
+<p>关于两者之间的区别：微任务是批量执行、宏任务则是一个一个的执行。</p>
+<ul>
+<li>执行一个宏任务，如果遇到微任务就将它放到微任务的事件队列中</li>
+<li>当前宏任务执行完成后，会查看微任务的事件队列，然后将里面的所有微任务依次执行完</li>
+</ul>
+<p>这里我们可以看到，script标签包含的下面的代码块，那么这就属于是第一个异步任务，也就是宏任务，首先去执行它</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">'1'</span>) </span></span><br><span class="line"><span class="actionscript">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123; </span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(<span class="string">'2'</span>)</span></span><br><span class="line">    &#125;);</span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123; </span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'3'</span>);  </span></span><br><span class="line">        resolve();</span><br><span class="line"><span class="actionscript">    &#125;).then(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123; </span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'4'</span>)</span></span><br><span class="line"><span class="actionscript">        setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'5'</span>) </span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="javascript">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'6'</span>); </span></span><br><span class="line">            resolve();</span><br><span class="line"><span class="actionscript">        &#125;).then(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">             <span class="built_in">console</span>.log(<span class="string">'7'</span>)</span></span><br><span class="line"><span class="actionscript">        setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'8'</span>) </span></span><br><span class="line">        &#125;); </span><br><span class="line">    &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">0</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">new</span> Promise(<span class="function"><span class="params">(resolve, reject)</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">    resolve()</span><br><span class="line">&#125;).<span class="keyword">then</span>(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">new</span> Promise(<span class="function"><span class="params">(resolve, reject)</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">        resolve()</span><br><span class="line">    &#125;).<span class="keyword">then</span>(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">    &#125;).<span class="keyword">then</span>(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;).<span class="keyword">then</span>(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">6</span>)</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">new</span> Promise(<span class="function"><span class="params">(resolve, reject)</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">7</span>)</span><br><span class="line">    resolve()</span><br><span class="line">&#125;).<span class="keyword">then</span>(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">8</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="number">172384650</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">new</span> Promise(<span class="function"><span class="params">(resolve, reject)</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">    setTimeout(() = &gt;&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">    &#125;);</span><br><span class="line">    resolve()</span><br><span class="line">&#125;).<span class="keyword">then</span>(<span class="function"><span class="params">()</span> =&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>，<span class="number">2</span>，<span class="number">6</span>，<span class="number">4</span>，<span class="number">3</span>，<span class="number">5</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'1'</span>) </span><br><span class="line">    setTimeout(function () &#123; </span><br><span class="line">       <span class="built_in">console</span>.log(<span class="string">'2'</span>)</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">new</span> Promise(function (resolve) &#123; </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'3'</span>);  </span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).<span class="keyword">then</span>(function () &#123; </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'4'</span>)</span><br><span class="line">        setTimeout(function () &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'5'</span>) </span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">new</span> Promise(function (resolve) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'6'</span>); </span><br><span class="line">            resolve();</span><br><span class="line">        &#125;).<span class="keyword">then</span>(function () &#123;</span><br><span class="line">             <span class="built_in">console</span>.log(<span class="string">'7'</span>)</span><br><span class="line">        setTimeout(function () &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'8'</span>) </span><br><span class="line">        &#125;); </span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">9</span>)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="number">136947258</span></span><br><span class="line"></span><br><span class="line">let promise = <span class="keyword">new</span> Promise(resolve=&gt;&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        resolve();</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'1'</span>)</span><br><span class="line">    &#125;,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'2'</span>)</span><br><span class="line">&#125;).<span class="keyword">then</span>(value=&gt;<span class="built_in">console</span>.log(<span class="string">'3'</span>))</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'4'</span>)</span><br><span class="line"><span class="number">2413</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>) <span class="regexp">//</span> 遇到 <span class="built_in">console</span>.log(<span class="number">1</span>) ，直接打印 <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 遇到定时器，属于新的宏任务，留着后面执行</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 遇到 <span class="keyword">new</span> Promise，这个是直接执行的，打印 <span class="string">'new Promise'</span></span><br><span class="line"><span class="keyword">new</span> Promise(<span class="function"><span class="params">(resolve, reject)</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'new Promise'</span>)</span><br><span class="line">    resolve()</span><br><span class="line">&#125;).<span class="keyword">then</span>(<span class="function"><span class="params">()</span>=&gt;</span>&#123; <span class="regexp">//</span> .<span class="keyword">then</span> 属于微任务，放入微任务队列，后面再执行</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'then'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>) <span class="regexp">//</span> 遇到 <span class="built_in">console</span>.log(<span class="number">3</span>) 直接打印 <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 好了本轮宏任务执行完毕，现在去微任务列表查看是否有微任务，发现 .<span class="keyword">then</span> 的回调，执行它，打印 <span class="string">'then'</span></span><br><span class="line"><span class="regexp">//</span> 当一次宏任务执行完，再去执行新的宏任务，这里就剩一个定时器的宏任务了，执行它，打印 <span class="number">2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">实际结果是：<span class="number">1</span>=&gt;<span class="string">'new Promise'</span>=&gt; <span class="number">3</span> =&gt; <span class="string">'then'</span> =&gt; <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>同步&gt;微任务&gt;宏任务</p>
+<h4 id="async与await"><a href="#async与await" class="headerlink" title="async与await"></a>async与await</h4><p><code>async</code> 是异步的意思，<code>await</code>则可以理解为 <code>async wait</code>。所以可以理解<code>async</code>就是用来声明一个异步方法，而 <code>await</code>是用来等待异步方法执行</p>
+<p><code>async</code>函数返回一个<code>promise</code>对象，下面两种方法是等效的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(<span class="string">'TEST'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// asyncF is equivalent to f!</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncF</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'TEST'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>正常情况下，<code>await</code>命令后面是一个 <code>Promise</code>对象，返回该对象的结果。如果不是 <code>Promise</code>对象，就直接返回对应的值。不管<code>await</code>后面跟着的是什么，<code>await</code>都会阻塞后面的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fn1</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">await</span> fn2()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>) <span class="comment">// 阻塞</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fn2</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'fn2'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn1()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，<code>await</code>会阻塞下面的代码（即加入微任务队列），先执行 <code>async</code>外面的同步代码，同步代码执行完，再回到 <code>async</code> 函数中，再执行之前阻塞的代码</p>
+<p>所以上述输出结果为：<code>1，fn2，3，2</code></p>
+<p>参考文章</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_48389576/article/details/112210861" target="_blank" rel="noopener">宏任务微任务</a></li>
+<li><a href="https://vue3js.cn/interview/JavaScript/event_loop.html#%E4%B8%89%E3%80%81async%E4%B8%8Eawait" target="_blank" rel="noopener">事件循环</a></li>
+</ul>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/学习/">学习</a>
+		  
+			<a href="/tags/前端/">前端</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/06/29/手写一个带有并发限制的异步调度器/">
+        <span class="next-text nav-default">手写一个带有并发限制的异步调度器</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2022
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
