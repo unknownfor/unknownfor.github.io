@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="Taro使用笔记">
+
+
+
+
+  <meta name="keywords" content="前端,学习,小程序,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2021/05/09/Taro使用笔记/">
+
+
+<meta name="description" content="最近小程序做的实在是踩坑辛酸泪，做个笔记记录下吧 官方使用文档对脚手架的下载和项目创建和运行项目，仔细看完快速上手很详细，就是很多运行起来意料之外的bug 路由配置配置路由中我们要注意，创建的页面不会像uniapp那样自动给配置进全局配置里，需要手动对app.jsx进行配置。这里的报错就是没找到这个module，配置了还不行，改变了app.js必须重新运行，才会生效。 12345678// src">
+<meta name="keywords" content="前端,学习,小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Taro使用笔记">
+<meta property="og:url" content="http://unknownfor.github.io/2021/05/09/Taro使用笔记/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="最近小程序做的实在是踩坑辛酸泪，做个笔记记录下吧 官方使用文档对脚手架的下载和项目创建和运行项目，仔细看完快速上手很详细，就是很多运行起来意料之外的bug 路由配置配置路由中我们要注意，创建的页面不会像uniapp那样自动给配置进全局配置里，需要手动对app.jsx进行配置。这里的报错就是没找到这个module，配置了还不行，改变了app.js必须重新运行，才会生效。 12345678// src">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2022-05-11T02:54:12.285Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Taro使用笔记">
+<meta name="twitter:description" content="最近小程序做的实在是踩坑辛酸泪，做个笔记记录下吧 官方使用文档对脚手架的下载和项目创建和运行项目，仔细看完快速上手很详细，就是很多运行起来意料之外的bug 路由配置配置路由中我们要注意，创建的页面不会像uniapp那样自动给配置进全局配置里，需要手动对app.jsx进行配置。这里的报错就是没找到这个module，配置了还不行，改变了app.js必须重新运行，才会生效。 12345678// src">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Taro使用笔记 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Taro使用笔记
+        
+      </h1>
+
+      <time class="post-time">
+          May 09 2021
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>最近小程序做的实在是踩坑辛酸泪，做个笔记记录下吧</p>
+<p><a href="https://taro-docs.jd.com/taro/docs/" target="_blank" rel="noopener">官方使用文档</a>对脚手架的下载和项目创建和运行项目，仔细看完快速上手很详细，就是很多运行起来意料之外的bug</p>
+<h5 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h5><p>配置路由中我们要注意，创建的页面不会像uniapp那样自动给配置进全局配置里，需要手动对app.jsx进行配置。这里的报错就是没找到这个module，配置了还不行，改变了app.js必须重新运行，才会生效。</p>
+<figure class="highlight flix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/app.jsx</span></span><br><span class="line">pages: [ <span class="comment">// 路由</span></span><br><span class="line">  'pages/home/<span class="keyword">index</span>',</span><br><span class="line">  'pages/kind/<span class="keyword">index</span>',</span><br><span class="line">  'pages/cart/<span class="keyword">index</span>',</span><br><span class="line">  'pages/user/<span class="keyword">index</span>',</span><br><span class="line">  'pages/<span class="keyword">index</span>/<span class="keyword">index</span>'</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h5 id="页面配置"><a href="#页面配置" class="headerlink" title="页面配置"></a>页面配置</h5><p>在Taro中的页面配置并没有分一个单独的写，而是直接在组件中写</p>
+<p>当然你想要下拉刷新的时候必须在这里面进行配置，否则就算在下拉刷新的周期里写了也不会有任何反应</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">  config = &#123;</span><br><span class="line">      navigationBarBackgroundColor: '#ffffff',</span><br><span class="line">      navigationBarTextStyle: <span class="symbol">'blac</span>k',</span><br><span class="line">      navigationBarTitleText: '测试',</span><br><span class="line">      backgroundColor: '#eeeeee',</span><br><span class="line">      backgroundTextStyle: <span class="symbol">'ligh</span>t',</span><br><span class="line">      enablePullDownRefresh:<span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"> ｝</span><br></pre></td></tr></table></figure>
+<h5 id="公共请求封装"><a href="#公共请求封装" class="headerlink" title="公共请求封装"></a>公共请求封装</h5><p>在请求数据的时候，单独写的一个js让全部请求都能够使用，你这时候就不能光看一个请求区适配，有些有数据传，有些没数据传。有些get有些post这是后你就需要给其设定默认值，需要考虑好封装的请求大兼容性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Taro <span class="keyword">from</span> <span class="string">'@tarojs/taro'</span></span><br><span class="line"><span class="keyword">const</span> baseUrl=<span class="string">"http://xxxx"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">options</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> &#123;url,method,data&#125;=options</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    Taro.request(&#123;</span><br><span class="line">      url:baseUrl+url,</span><br><span class="line">      method:method||<span class="string">'GET'</span>,</span><br><span class="line">      data:data||&#123;&#125;,</span><br><span class="line">      success:<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">        resolve(res)</span><br><span class="line">      &#125;,</span><br><span class="line">      fail:<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">        reject(res)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="计算页面高度"><a href="#计算页面高度" class="headerlink" title="计算页面高度"></a>计算页面高度</h5><p>页面滚动到某个元素的时候，固定导航栏，小程序需要获取某个元素的高度。这个元素在子组件中。</p>
+<p>也就是如何获取自定义组件中某个元素的信息。微信官方是使用this.createSelectorQuery。但是在taro小程序中，子组件使用this.createSelectorQuery会报错，直接抛出 this.createSelectorQuery is not a function。大部分百度信息是加延时。但是加了延时也不作用～</p>
+<p>taro中正确用法：使用in(this.$scope)</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">wx</span><span class="selector-class">.createSelectorQuery</span>()<span class="selector-class">.in</span>(this.$scope)<span class="selector-class">.select</span>(<span class="string">'.replay-content'</span>)<span class="selector-class">.boundingClientRect</span>(function (<span class="attribute">rect</span>: any) &#123;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// to do</span></span><br><span class="line"></span><br><span class="line">&#125;)<span class="selector-class">.exec</span>()</span><br></pre></td></tr></table></figure>
+<h5 id="defaultProps"><a href="#defaultProps" class="headerlink" title="defaultProps"></a>defaultProps</h5><p>子组件中接收的props需要定义defaultProps。否则小程序端报错</p>
+<p>期间还踩了大坑，在 Taro 中，JS 代码里必须书写单引号，特别是 JSX 中，如果出现双引号，可能会导致编译错误</p>
+<p>小程序受限于wxml语法，也不支持扩展运算符</p>
+<h5 id="jsx"><a href="#jsx" class="headerlink" title="jsx"></a>jsx</h5><p>小程序端不支持在render()之外定义jsx。比如在外面renderForm()</p>
+<p>最后一项就是我自己的问题了，在关于计算属性时，由于之前是使用vue，而我经常使用computed来计算值直接渲染视图，我在使用Taro的时候就一直在寻找有没有对应的函数能够给我使用，最后看过案例后，才想起数据渲染视图这句话，我并不需要对应的方法使用同样可以得到我想要的结果，我在componentDidShow(){}函数中用进入时请求的值先行计算赋给state然后在计算的值改变的操作中再次调用此函数，最后能够在数据改变的时候让计算的值得到更新。</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/前端/">前端</a>
+		  
+			<a href="/tags/学习/">学习</a>
+		  
+			<a href="/tags/小程序/">小程序</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2021/04/26/宏任务还是微任务？/">
+        <span class="next-text nav-default">宏任务还是微任务？</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2022
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
