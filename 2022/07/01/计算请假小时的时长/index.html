@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="计算请假小时的时长">
+
+
+
+
+  <meta name="keywords" content="前端,VUE,uniapp开发,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2022/07/01/计算请假小时的时长/">
+
+
+<meta name="description" content="最近有一个需求，选择两个日期后，计算请假总的小时数 要求：  日期之间如果有法定节假日，需要剔除计算 已设置的非考勤时间段，需要剔除计算 只统计请假日期范围内需要出勤的时间总和  举例： 请假10月1日至10月10日，其中10月1日至10月7日为法定节假日，10月8日、10月9日、10月10日为考勤日期，考勤时间段为9:00-12:00， 13:00-18:00，由此可得请假小时为24个小时 思考">
+<meta name="keywords" content="前端,VUE,uniapp开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算请假小时的时长">
+<meta property="og:url" content="http://unknownfor.github.io/2022/07/01/计算请假小时的时长/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="最近有一个需求，选择两个日期后，计算请假总的小时数 要求：  日期之间如果有法定节假日，需要剔除计算 已设置的非考勤时间段，需要剔除计算 只统计请假日期范围内需要出勤的时间总和  举例： 请假10月1日至10月10日，其中10月1日至10月7日为法定节假日，10月8日、10月9日、10月10日为考勤日期，考勤时间段为9:00-12:00， 13:00-18:00，由此可得请假小时为24个小时 思考">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2022-11-01T12:47:48.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算请假小时的时长">
+<meta name="twitter:description" content="最近有一个需求，选择两个日期后，计算请假总的小时数 要求：  日期之间如果有法定节假日，需要剔除计算 已设置的非考勤时间段，需要剔除计算 只统计请假日期范围内需要出勤的时间总和  举例： 请假10月1日至10月10日，其中10月1日至10月7日为法定节假日，10月8日、10月9日、10月10日为考勤日期，考勤时间段为9:00-12:00， 13:00-18:00，由此可得请假小时为24个小时 思考">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 计算请假小时的时长 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          计算请假小时的时长
+        
+      </h1>
+
+      <time class="post-time">
+          Jul 01 2022
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>最近有一个需求，选择两个日期后，计算请假总的小时数</p>
+<p>要求：</p>
+<ol>
+<li>日期之间如果有法定节假日，需要剔除计算</li>
+<li>已设置的非考勤时间段，需要剔除计算</li>
+<li>只统计请假日期范围内需要出勤的时间总和</li>
+</ol>
+<p>举例：</p>
+<p>请假10月1日至10月10日，其中10月1日至10月7日为法定节假日，10月8日、10月9日、10月10日为考勤日期，考勤时间段为9:00-12:00， 13:00-18:00，由此可得请假小时为24个小时</p>
+<p>思考：</p>
+<p>因为考勤时间可能存在多个时间段和多个筛选日期条件</p>
+<p>先统计出需要出勤的日期，计算出全部工作小时，再遍历法定节假日数组，剔除法定节假日的工作小时</p>
+<p>demo如下：</p>
+<h4 id="参考api"><a href="#参考api" class="headerlink" title="参考api"></a>参考api</h4><p><a href="http://www.apihubs.cn/#/holiday" target="_blank" rel="noopener">节假日api，依据条件进行筛选</a></p>
+<h5 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h5><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">return &#123;</span><br><span class="line">     // 法定节假日</span><br><span class="line">     festival: ["2018<span class="string">-12</span><span class="string">-30</span>", "2018<span class="string">-12</span><span class="string">-31</span>", "2019<span class="string">-01</span><span class="string">-01</span>", "2019<span class="string">-02</span><span class="string">-03</span>", "2019<span class="string">-02</span><span class="string">-04</span>", "2019<span class="string">-02</span><span class="string">-05</span>", "2019<span class="string">-02</span><span class="string">-06</span>", "2019<span class="string">-02</span><span class="string">-07</span>", "2019<span class="string">-02</span><span class="string">-08</span>", "2019<span class="string">-02</span><span class="string">-09</span>",</span><br><span class="line">       "2019<span class="string">-02</span><span class="string">-10</span>", "2019<span class="string">-02</span><span class="string">-11</span>", "2019<span class="string">-04</span><span class="string">-05</span>", "2019<span class="string">-04</span><span class="string">-06</span>", "2019<span class="string">-04</span><span class="string">-07</span>", "2019<span class="string">-05</span><span class="string">-01</span>", "2019<span class="string">-05</span><span class="string">-02</span>", "2019<span class="string">-05</span><span class="string">-03</span>", "2019<span class="string">-05</span><span class="string">-04</span>", "2019<span class="string">-06</span><span class="string">-07</span>", "2019<span class="string">-06</span><span class="string">-08</span>",</span><br><span class="line">       "2019<span class="string">-06</span><span class="string">-09</span>", "2019<span class="string">-09</span><span class="string">-13</span>", "2019<span class="string">-09</span><span class="string">-14</span>", "2019<span class="string">-09</span><span class="string">-15</span>", "2019<span class="string">-10</span><span class="string">-01</span>", "2019<span class="string">-10</span><span class="string">-02</span>", "2019<span class="string">-10</span><span class="string">-03</span>", "2019<span class="string">-10</span><span class="string">-04</span>", "2019<span class="string">-10</span><span class="string">-05</span>", "2019<span class="string">-10</span><span class="string">-06</span>", "2019<span class="string">-10</span><span class="string">-07</span>",</span><br><span class="line">       "2020<span class="string">-01</span><span class="string">-01</span>", "2020<span class="string">-01</span><span class="string">-24</span>", "2020<span class="string">-01</span><span class="string">-25</span>", "2020<span class="string">-01</span><span class="string">-26</span>", "2020<span class="string">-01</span><span class="string">-27</span>", "2020<span class="string">-01</span><span class="string">-28</span>", "2020<span class="string">-01</span><span class="string">-29</span>", "2020<span class="string">-01</span><span class="string">-30</span>", "2020<span class="string">-01</span><span class="string">-31</span>", "2020<span class="string">-02</span><span class="string">-01</span>", "2020<span class="string">-02</span><span class="string">-02</span>",</span><br><span class="line">       "2020<span class="string">-04</span><span class="string">-04</span>", "2020<span class="string">-04</span><span class="string">-05</span>", "2020<span class="string">-04</span><span class="string">-06</span>", "2020<span class="string">-05</span><span class="string">-01</span>", "2020<span class="string">-05</span><span class="string">-02</span>", "2020<span class="string">-05</span><span class="string">-03</span>", "2020<span class="string">-05</span><span class="string">-04</span>", "2020<span class="string">-05</span><span class="string">-05</span>", "2020<span class="string">-06</span><span class="string">-25</span>", "2020<span class="string">-06</span><span class="string">-26</span>", "2020<span class="string">-06</span><span class="string">-27</span>",</span><br><span class="line">       "2020<span class="string">-10</span><span class="string">-01</span>", "2020<span class="string">-10</span><span class="string">-02</span>", "2020<span class="string">-10</span><span class="string">-03</span>", "2020<span class="string">-10</span><span class="string">-04</span>", "2020<span class="string">-10</span><span class="string">-05</span>", "2020<span class="string">-10</span><span class="string">-06</span>", "2020<span class="string">-10</span><span class="string">-07</span>", "2020<span class="string">-10</span><span class="string">-08</span>",</span><br><span class="line">       "2021<span class="string">-01</span><span class="string">-01</span>", "2021<span class="string">-02</span><span class="string">-11</span>", "2021<span class="string">-02</span><span class="string">-12</span>", "2021<span class="string">-02</span><span class="string">-13</span>", "2021<span class="string">-02</span><span class="string">-14</span>", "2021<span class="string">-02</span><span class="string">-15</span>", "2021<span class="string">-02</span><span class="string">-16</span>", "2021<span class="string">-02</span><span class="string">-17</span>", "2021<span class="string">-02</span><span class="string">-26</span>", "2021<span class="string">-04</span><span class="string">-02</span>", "2021<span class="string">-04</span><span class="string">-03</span>",</span><br><span class="line">       "2021<span class="string">-04</span><span class="string">-04</span>", "2021<span class="string">-04</span><span class="string">-30</span>", "2021<span class="string">-05</span><span class="string">-01</span>", "2021<span class="string">-05</span><span class="string">-02</span>", "2021<span class="string">-06</span><span class="string">-12</span>", "2021<span class="string">-06</span><span class="string">-13</span>", "2021<span class="string">-06</span><span class="string">-14</span>", "2021<span class="string">-06</span><span class="string">-12</span>", "2021<span class="string">-09</span><span class="string">-19</span>", "2021<span class="string">-09</span><span class="string">-20</span>", "2021<span class="string">-09</span><span class="string">-21</span>",</span><br><span class="line">       "2021<span class="string">-10</span><span class="string">-01</span>", "2021<span class="string">-10</span><span class="string">-02</span>", "2021<span class="string">-10</span><span class="string">-03</span>", "2021<span class="string">-10</span><span class="string">-04</span>", "2021<span class="string">-10</span><span class="string">-05</span>", "2021<span class="string">-10</span><span class="string">-06</span>", "2021<span class="string">-10</span><span class="string">-07</span>",</span><br><span class="line">       "2022<span class="string">-01</span><span class="string">-01</span>", "2022<span class="string">-01</span><span class="string">-31</span>", "2022<span class="string">-02</span><span class="string">-01</span>", "2022<span class="string">-02</span><span class="string">-02</span>", "2022<span class="string">-02</span><span class="string">-03</span>", "2022<span class="string">-02</span><span class="string">-04</span>", "2022<span class="string">-02</span><span class="string">-05</span>", "2022<span class="string">-02</span><span class="string">-06</span>", "2022<span class="string">-04</span><span class="string">-03</span>", "2022<span class="string">-04</span><span class="string">-04</span>", "2022<span class="string">-04</span><span class="string">-05</span>",</span><br><span class="line">       "2022<span class="string">-04</span><span class="string">-30</span>", "2022<span class="string">-05</span><span class="string">-01</span>", "2022<span class="string">-05</span><span class="string">-02</span>", "2022<span class="string">-06</span><span class="string">-03</span>", "2022<span class="string">-06</span><span class="string">-04</span>", "2022<span class="string">-06</span><span class="string">-05</span>", "2022<span class="string">-09</span><span class="string">-09</span>", "2022<span class="string">-09</span><span class="string">-10</span>", "2022<span class="string">-09</span><span class="string">-11</span>", "2022<span class="string">-10</span><span class="string">-01</span>", "2022<span class="string">-10</span><span class="string">-02</span>",</span><br><span class="line">       "2022<span class="string">-10</span><span class="string">-03</span>", "2022<span class="string">-10</span><span class="string">-04</span>", "2022<span class="string">-10</span><span class="string">-05</span>", "2022<span class="string">-10</span><span class="string">-06</span>", "2022<span class="string">-10</span><span class="string">-07</span>"</span><br><span class="line">     ],</span><br><span class="line">     //需要上班的周末</span><br><span class="line">     weekendWorkDay: ["2018<span class="string">-12</span><span class="string">-29</span>", "2019<span class="string">-02</span><span class="string">-02</span>", "2019<span class="string">-09</span><span class="string">-29</span>", "2019<span class="string">-10</span><span class="string">-12</span>", "2019<span class="string">-04</span><span class="string">-28</span>", "2019<span class="string">-05</span><span class="string">-05</span>",</span><br><span class="line">       "2020<span class="string">-01</span><span class="string">-19</span>", "2020<span class="string">-04</span><span class="string">-26</span>", "2020<span class="string">-05</span><span class="string">-09</span>", "2020<span class="string">-06</span><span class="string">-28</span>", "2020<span class="string">-09</span><span class="string">-27</span>", "2020<span class="string">-10</span><span class="string">-10</span>",</span><br><span class="line">       "2021<span class="string">-02</span><span class="string">-07</span>", "2021<span class="string">-02</span><span class="string">-20</span>", "2021<span class="string">-09</span><span class="string">-18</span>", "2021<span class="string">-10</span><span class="string">-09</span>", "2021<span class="string">-10</span><span class="string">-10</span>"</span><br><span class="line">     ],</span><br><span class="line">     festival_list: [],</span><br><span class="line">     weekendWorkDay_list: []</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="响应方法"><a href="#响应方法" class="headerlink" title="响应方法"></a>响应方法</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将节假日,周末工作日转换为时间戳</span></span><br><span class="line">    <span class="keyword">this</span>.festival.forEach(<span class="function">(<span class="params">i, item</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.festival_list.push(<span class="keyword">new</span> <span class="built_in">Date</span>(item).valueOf())</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">this</span>.weekendWorkDay.forEach(<span class="function">(<span class="params">i, item</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.weekendWorkDay_list.push(<span class="keyword">new</span> <span class="built_in">Date</span>(item).valueOf())</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.formatCountDay(<span class="string">"2022-07-22"</span>, <span class="string">"2022-07-25"</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="读入数据"><a href="#读入数据" class="headerlink" title="读入数据"></a>读入数据</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 过滤俩天之间的周末节假日，返回距离的天数</span></span><br><span class="line">    formatCountDay (start, end) &#123;</span><br><span class="line">      <span class="keyword">var</span> sign = <span class="literal">true</span></span><br><span class="line">      <span class="keyword">var</span> startday = <span class="keyword">new</span> <span class="built_in">Date</span>(start)</span><br><span class="line">      <span class="keyword">var</span> endday = <span class="keyword">new</span> <span class="built_in">Date</span>(end)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 总相差天数</span></span><br><span class="line">      <span class="keyword">var</span> diffDay = (endday - startday) / (<span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span>) + <span class="number">1</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">parseInt</span>(diffDay) === <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">parseInt</span>(diffDay)</span><br><span class="line">      <span class="comment">// 周末周六天数+节假日</span></span><br><span class="line">      <span class="keyword">var</span> weekEnds = <span class="number">0</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; diffDay; i++) &#123;</span><br><span class="line">        sign = <span class="literal">true</span></span><br><span class="line">        <span class="comment">// 判断是否是节假日</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.festival_list.includes(startday.valueOf())) &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">"节假日"</span>)</span><br><span class="line">          weekEnds = weekEnds + <span class="number">1</span></span><br><span class="line">          sign = <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 判断周六周日，如果是节假日则不作判断</span></span><br><span class="line">        <span class="keyword">if</span> (sign === <span class="literal">true</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (startday.getDay() === <span class="number">0</span> || startday.getDay() === <span class="number">6</span>) &#123;</span><br><span class="line">            <span class="comment">// 判断该周末是否需要因为节假日补班</span></span><br><span class="line">            <span class="keyword">var</span> weekEnds_sign = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> j <span class="keyword">in</span> <span class="keyword">this</span>.weekendWorkDay_list) &#123;</span><br><span class="line">              <span class="keyword">if</span> (startday.valueOf() === <span class="keyword">this</span>.weekendWorkDay_list[j]) &#123;</span><br><span class="line">                weekEnds_sign = weekEnds_sign + <span class="number">1</span></span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (weekEnds_sign === <span class="number">0</span>) &#123;</span><br><span class="line">              weekEnds = weekEnds + <span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        startday.setDate(startday.getDate() + <span class="number">1</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">console</span>.log(diffDay - weekEnds)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">parseInt</span>(diffDay - weekEnds)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 计算请假时长</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>beginTime    开始时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>endTime      结束时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>stWorkTime   上班时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>enWrokTime   下班时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>isFreeTime  是否要去除午休工作时长</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>freeTimeMon  午休开始时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>freeTimeAft  午休结束时间</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">     getTotal(beginTime ,endTime,stWorkTime,enWrokTime,isFreeTime,freeTimeMon,freeTimeAft)&#123;</span><br><span class="line">         <span class="keyword">var</span> days;</span><br><span class="line">         <span class="keyword">var</span> hours;</span><br><span class="line">         <span class="keyword">var</span> date;</span><br><span class="line">         <span class="keyword">var</span> freeTime=freeTimeAft-freeTimeMon;</span><br><span class="line">         </span><br><span class="line">         beginTime = beginTime.replace(<span class="regexp">/-/g</span>,<span class="string">'/'</span>);</span><br><span class="line">         <span class="keyword">var</span> beginArr =  beginTime.split(<span class="string">" "</span>);     </span><br><span class="line">         <span class="keyword">var</span> beginMonth = <span class="built_in">parseInt</span>( beginArr[<span class="number">0</span>].split(<span class="string">"/"</span>)[<span class="number">1</span>]);</span><br><span class="line">         <span class="keyword">var</span> beginDay = <span class="built_in">parseInt</span>(beginArr[<span class="number">0</span>].split(<span class="string">"/"</span>)[<span class="number">2</span>]); </span><br><span class="line">         <span class="keyword">var</span> beginHours = <span class="built_in">parseInt</span>(beginArr[<span class="number">1</span>].split(<span class="string">":"</span>)[<span class="number">0</span>]);                                       </span><br><span class="line">         <span class="keyword">var</span> beginMin = <span class="built_in">parseInt</span>(beginArr[<span class="number">1</span>].split(<span class="string">":"</span>)[<span class="number">1</span>]);   </span><br><span class="line">         <span class="keyword">var</span> beginHoursMin = beginHours+beginMin/<span class="number">60</span>;</span><br><span class="line">       </span><br><span class="line">         endTime = endTime.replace(<span class="regexp">/-/g</span>,<span class="string">'/'</span>);</span><br><span class="line">         <span class="keyword">var</span> endArr = endTime.split(<span class="string">" "</span>);</span><br><span class="line">         <span class="keyword">var</span> endMonth = <span class="built_in">parseInt</span>(endArr[<span class="number">0</span>].split(<span class="string">"/"</span>)[<span class="number">1</span>]);</span><br><span class="line">         <span class="keyword">var</span> endDay = <span class="built_in">parseInt</span>(endArr[<span class="number">0</span>].split(<span class="string">"/"</span>)[<span class="number">2</span>]);  </span><br><span class="line">         <span class="keyword">var</span> endHours = <span class="built_in">parseInt</span>(endArr[<span class="number">1</span>].split(<span class="string">":"</span>)[<span class="number">0</span>]);</span><br><span class="line">         <span class="keyword">var</span> endMin = <span class="built_in">parseInt</span>(endArr[<span class="number">1</span>].split(<span class="string">":"</span>)[<span class="number">1</span>]);</span><br><span class="line">         <span class="keyword">var</span> endHoursMin = endHours+endMin/<span class="number">60</span>;</span><br><span class="line">     </span><br><span class="line">         </span><br><span class="line">         <span class="comment">//如果beginHoursMin时间小于上班时间都算上班时间</span></span><br><span class="line">         <span class="keyword">if</span> (beginHoursMin&lt;=stWorkTime)&#123;     </span><br><span class="line">             beginHoursMin = stWorkTime;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="comment">//如果endHoursMin时间大于上班时间都算下班时间</span></span><br><span class="line">         <span class="keyword">if</span> (endHoursMin&gt;=enWrokTime)&#123;</span><br><span class="line">             endHoursMin = enWrokTime;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="comment">//如果结束时间在freeTimeMon和freeTimeAft之间都算freeTimeMon</span></span><br><span class="line">         <span class="keyword">if</span> (isFreeTime==<span class="literal">true</span>)&#123;</span><br><span class="line">             <span class="keyword">if</span> (endHoursMin&gt;=freeTimeMon &amp;&amp; endHoursMin&lt;=freeTimeAft)&#123;</span><br><span class="line">                 endHoursMin = freeTimeMon;</span><br><span class="line">             &#125;</span><br><span class="line">             </span><br><span class="line">         &#125;</span><br><span class="line">             </span><br><span class="line">         </span><br><span class="line">         <span class="comment">//获取结束时间-开始时间的天数</span></span><br><span class="line">         <span class="keyword">var</span> daysBetween = <span class="keyword">this</span>.daysBetween(beginTime,endTime);</span><br><span class="line">         <span class="keyword">if</span> (daysBetween.length&gt;<span class="number">0</span>)&#123;</span><br><span class="line">             <span class="keyword">var</span> daysBetweenLen = daysBetween.length;</span><br><span class="line">             <span class="comment">//午休</span></span><br><span class="line">             <span class="keyword">if</span> (isFreeTime==<span class="literal">true</span>)&#123;</span><br><span class="line">                 <span class="keyword">var</span> hour = enWrokTime-stWorkTime-freeTime;</span><br><span class="line">                 <span class="keyword">if</span> (daysBetweenLen==<span class="number">1</span>)&#123;</span><br><span class="line">                     <span class="comment">//同一天</span></span><br><span class="line">                     hours=(endHoursMin)-(beginHoursMin)-freeTime;</span><br><span class="line">                 &#125;<span class="keyword">else</span> <span class="keyword">if</span> (daysBetweenLen==<span class="number">2</span>)&#123;</span><br><span class="line">                     <span class="comment">//跨一天   </span></span><br><span class="line">                     <span class="comment">//第一天的时长</span></span><br><span class="line">                     hours = enWrokTime - beginHoursMin;</span><br><span class="line">                     <span class="comment">//是否有午休         </span></span><br><span class="line">                     <span class="keyword">if</span> (beginHoursMin&lt;=freeTimeMon) </span><br><span class="line">                         hours=hours-freeTime;</span><br><span class="line">                     <span class="comment">//第二天的时长    </span></span><br><span class="line">                     hours += endHoursMin -stWorkTime ;</span><br><span class="line">                     <span class="comment">//是否有午休 </span></span><br><span class="line">                     <span class="keyword">if</span> (endHoursMin&gt;=freeTimeAft)</span><br><span class="line">                         hours=hours-freeTime;</span><br><span class="line">                             </span><br><span class="line">                 &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                     <span class="comment">//跨两天以上 </span></span><br><span class="line">                     <span class="comment">//第一天的时长</span></span><br><span class="line">                     hours = enWrokTime - beginHoursMin;</span><br><span class="line">                     <span class="comment">//是否有午休             </span></span><br><span class="line">                     <span class="keyword">if</span> (beginHoursMin&lt;=freeTimeMon) </span><br><span class="line">                         hours=hours-freeTime;</span><br><span class="line">                     <span class="comment">//中间时长</span></span><br><span class="line">                     hours+=(daysBetweenLen<span class="number">-2</span>)*(hour);</span><br><span class="line">                     <span class="comment">//最后一天时长</span></span><br><span class="line">                     hours += endHoursMin -stWorkTime ;</span><br><span class="line">                     <span class="comment">//是否有午休 </span></span><br><span class="line">                     <span class="keyword">if</span> (endHoursMin&gt;=freeTimeAft)</span><br><span class="line">                         hours=hours-freeTime;</span><br><span class="line">                 &#125;</span><br><span class="line">                 days = <span class="built_in">Math</span>.floor(hours/hour);</span><br><span class="line">                 hours = hours%hour;</span><br><span class="line">                 date =&#123;<span class="string">"days"</span>:days,<span class="string">"hours"</span>:hours&#125;;          </span><br><span class="line">                 </span><br><span class="line">             &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">             <span class="comment">//非午休   </span></span><br><span class="line">                 hour = enWrokTime-stWorkTime;</span><br><span class="line">                 <span class="keyword">if</span> (daysBetweenLen==<span class="number">1</span>)&#123;</span><br><span class="line">                     <span class="comment">//同一天</span></span><br><span class="line">                     hours=(endHoursMin)-(beginHoursMin);</span><br><span class="line">                 &#125;<span class="keyword">else</span> <span class="keyword">if</span> (daysBetweenLen==<span class="number">2</span>)&#123;</span><br><span class="line">                     <span class="comment">//跨一天   </span></span><br><span class="line">                     hours = enWrokTime - beginHoursMin; </span><br><span class="line">                     <span class="comment">//第二天的时长</span></span><br><span class="line">                     hours += endHoursMin -stWorkTime ;              </span><br><span class="line">                 &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                     <span class="comment">//跨两天以上 </span></span><br><span class="line">                     <span class="comment">//第一天的时长</span></span><br><span class="line">                     hours = enWrokTime - beginHoursMin; </span><br><span class="line">                     <span class="comment">//中间时长</span></span><br><span class="line">                     hours+=(daysBetweenLen<span class="number">-2</span>)*(hour);</span><br><span class="line">                     <span class="comment">//最后一天时长</span></span><br><span class="line">                     hours += endHoursMin -stWorkTime ;              </span><br><span class="line">                 &#125;</span><br><span class="line">                 days = <span class="built_in">Math</span>.floor(hours/hour);</span><br><span class="line">                 hours = hours%hour;</span><br><span class="line">                 date =&#123;<span class="string">"days"</span>:days,<span class="string">"hours"</span>:hours&#125;;</span><br><span class="line">             &#125;</span><br><span class="line">             </span><br><span class="line">         </span><br><span class="line">         &#125;</span><br><span class="line">         <span class="built_in">console</span>.log(date)</span><br><span class="line">         <span class="keyword">return</span> date;</span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">* 根据两个日期，判断相差天数</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param </span>sDate1 开始日期 如：2016-11-01</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param </span>sDate2 结束日期 如：2016-11-02</span></span><br><span class="line"><span class="comment">* <span class="doctag">@returns <span class="type">&#123;number&#125;</span> </span>返回相差天数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">     daysBetween(sDate1,sDate2)&#123;</span><br><span class="line">       <span class="keyword">var</span> arr = [];</span><br><span class="line">       sDate1 = sDate1.substring(<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">       sDate2 = sDate2.substring(<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">       <span class="keyword">var</span> startTime = <span class="keyword">this</span>.gDate(sDate1);</span><br><span class="line">       <span class="keyword">var</span> endTime = <span class="keyword">this</span>.gDate(sDate2);</span><br><span class="line">       <span class="keyword">while</span>((endTime.getTime()-startTime.getTime())&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">         <span class="keyword">var</span> year = startTime.getFullYear();</span><br><span class="line">         <span class="keyword">var</span> month = startTime.getMonth().toString().length==<span class="number">1</span>?<span class="string">"0"</span>+startTime.getMonth().toString():startTime.getMonth();</span><br><span class="line">         <span class="keyword">var</span> day = startTime.getDate().toString().length==<span class="number">1</span>?<span class="string">"0"</span>+startTime.getDate():startTime.getDate();</span><br><span class="line">         arr.push(year+<span class="string">"/"</span>+month+<span class="string">"/"</span>+day);</span><br><span class="line">         startTime.setDate(startTime.getDate()+<span class="number">1</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> arr;</span><br><span class="line"></span><br><span class="line">     &#125;,</span><br><span class="line"></span><br><span class="line">     gDate(datestr)&#123;</span><br><span class="line">       datestr=datestr.replace(<span class="regexp">/-/g</span>,<span class="string">'/'</span>);</span><br><span class="line">       <span class="keyword">var</span> temp = datestr.split(<span class="string">"/"</span>);</span><br><span class="line">       <span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>(temp[<span class="number">0</span>],temp[<span class="number">1</span>],temp[<span class="number">2</span>]);</span><br><span class="line">       <span class="keyword">return</span> date;</span><br><span class="line">     &#125;,</span><br><span class="line"> </span><br><span class="line"> 	<span class="comment">//函数调用</span></span><br><span class="line"><span class="keyword">this</span>.getTotal(<span class="string">'2022-08-27 09:00:00'</span> ,<span class="string">'2022-08-28 18:00:00'</span>,<span class="number">9</span>,<span class="number">18</span>,<span class="literal">false</span>,<span class="number">12</span>,<span class="number">13.5</span>)</span><br></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/前端/">前端</a>
+		  
+			<a href="/tags/VUE/">VUE</a>
+		  
+			<a href="/tags/uniapp开发/">uniapp开发</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2021/05/09/Taro使用笔记/">
+        <span class="next-text nav-default">Taro使用笔记</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2022
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
