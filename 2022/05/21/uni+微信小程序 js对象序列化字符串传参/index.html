@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="uni+微信小程序 js对象序列化字符串传参">
+
+
+
+
+  <meta name="keywords" content="uniapp,微信小程序,移动端,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2022/05/21/uni+微信小程序 js对象序列化字符串传参/">
+
+
+<meta name="description" content="需求url里需要传多个参数进行数据传递 传参：1234const item = encodeURIComponent(JSON.stringify(val))uni.navigateTo(&amp;#123;	url: &apos;/pages/item-detils&apos; + &apos;?data=&apos; + item&amp;#125;) 解析：123onLoad(e) &amp;#123;	this.data = JSON.parse(de">
+<meta name="keywords" content="uniapp,微信小程序,移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uni+微信小程序 js对象序列化字符串传参">
+<meta property="og:url" content="http://unknownfor.github.io/2022/05/21/uni+微信小程序 js对象序列化字符串传参/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="需求url里需要传多个参数进行数据传递 传参：1234const item = encodeURIComponent(JSON.stringify(val))uni.navigateTo(&amp;#123;	url: &apos;/pages/item-detils&apos; + &apos;?data=&apos; + item&amp;#125;) 解析：123onLoad(e) &amp;#123;	this.data = JSON.parse(de">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2022-11-17T06:40:19.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uni+微信小程序 js对象序列化字符串传参">
+<meta name="twitter:description" content="需求url里需要传多个参数进行数据传递 传参：1234const item = encodeURIComponent(JSON.stringify(val))uni.navigateTo(&amp;#123;	url: &apos;/pages/item-detils&apos; + &apos;?data=&apos; + item&amp;#125;) 解析：123onLoad(e) &amp;#123;	this.data = JSON.parse(de">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> uni+微信小程序 js对象序列化字符串传参 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          uni+微信小程序 js对象序列化字符串传参
+        
+      </h1>
+
+      <time class="post-time">
+          May 21 2022
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h5 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h5><p>url里需要传多个参数进行数据传递</p>
+<h5 id="传参："><a href="#传参：" class="headerlink" title="传参："></a>传参：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> item = <span class="built_in">encodeURIComponent</span>(<span class="built_in">JSON</span>.stringify(val))</span><br><span class="line">uni.navigateTo(&#123;</span><br><span class="line">	url: <span class="string">'/pages/item-detils'</span> + <span class="string">'?data='</span> + item</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h5 id="解析："><a href="#解析：" class="headerlink" title="解析："></a>解析：</h5><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onLoad(e) &#123;</span><br><span class="line">	<span class="keyword">this</span>.<span class="keyword">data</span> = JSON.parse(decodeURIComponent(e.<span class="keyword">data</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/uniapp/">uniapp</a>
+		  
+			<a href="/tags/微信小程序/">微信小程序</a>
+		  
+			<a href="/tags/移动端/">移动端</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2022/07/01/计算请假小时的时长/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">计算请假小时的时长</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2022/05/17/uni-微信小程序-上传多张图片/">
+        <span class="next-text nav-default">uni+微信小程序 上传多张图片</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2022
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
