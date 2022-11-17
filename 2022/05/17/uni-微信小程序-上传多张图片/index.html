@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="uni+微信小程序 上传多张图片">
+
+
+
+
+  <meta name="keywords" content="移动端,uniapp,微信小程序,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2022/05/17/uni-微信小程序-上传多张图片/">
+
+
+<meta name="description" content="upload.vue123456789101112131415161718192021&amp;lt;u-upload	accept=&quot;image&quot;	capture=&quot;[&apos;album&apos;, &apos;camera&apos;]&quot;	:previewImage=&quot;true&quot;	width=&quot;200&quot;	height=&quot;200&quot;	:fileList=&quot;fileList&quot;	@afterRead=&quot;afterRead&quot;	@delete=&quot;">
+<meta name="keywords" content="移动端,uniapp,微信小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uni+微信小程序 上传多张图片">
+<meta property="og:url" content="http://unknownfor.github.io/2022/05/17/uni-微信小程序-上传多张图片/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="upload.vue123456789101112131415161718192021&amp;lt;u-upload	accept=&quot;image&quot;	capture=&quot;[&apos;album&apos;, &apos;camera&apos;]&quot;	:previewImage=&quot;true&quot;	width=&quot;200&quot;	height=&quot;200&quot;	:fileList=&quot;fileList&quot;	@afterRead=&quot;afterRead&quot;	@delete=&quot;">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2022-11-17T05:52:42.872Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uni+微信小程序 上传多张图片">
+<meta name="twitter:description" content="upload.vue123456789101112131415161718192021&amp;lt;u-upload	accept=&quot;image&quot;	capture=&quot;[&apos;album&apos;, &apos;camera&apos;]&quot;	:previewImage=&quot;true&quot;	width=&quot;200&quot;	height=&quot;200&quot;	:fileList=&quot;fileList&quot;	@afterRead=&quot;afterRead&quot;	@delete=&quot;">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> uni+微信小程序 上传多张图片 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          uni+微信小程序 上传多张图片
+        
+      </h1>
+
+      <time class="post-time">
+          May 17 2022
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h5 id="upload-vue"><a href="#upload-vue" class="headerlink" title="upload.vue"></a>upload.vue</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">u-upload</span></span></span><br><span class="line"><span class="tag">	<span class="attr">accept</span>=<span class="string">"image"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">capture</span>=<span class="string">"['album', 'camera']"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">:previewImage</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">width</span>=<span class="string">"200"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">height</span>=<span class="string">"200"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">:fileList</span>=<span class="string">"fileList"</span></span></span><br><span class="line"><span class="tag">	@<span class="attr">afterRead</span>=<span class="string">"afterRead"</span></span></span><br><span class="line"><span class="tag">	@<span class="attr">delete</span>=<span class="string">"deletePic"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">name</span>=<span class="string">"uploader-componet"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">multiple</span></span></span><br><span class="line"><span class="tag">	<span class="attr">:maxCount</span>=<span class="string">"9"</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"background-color: #f4f5f7;width:200rpx;height:200rpx;display: flex;align-items: center;justify-content: center;border-radius: 4rpx;box-sizing: border-box;"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">u-icon</span> <span class="attr">name</span>=<span class="string">"camera-fill"</span> <span class="attr">color</span>=<span class="string">"#D3D4D6"</span> <span class="attr">size</span>=<span class="string">"50"</span>&gt;</span><span class="tag">&lt;/<span class="name">u-icon</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">u-upload</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">u-button</span> <span class="attr">type</span>=<span class="string">"primary"</span> <span class="attr">:plain</span>=<span class="string">"true"</span> <span class="attr">text</span>=<span class="string">"提交申请"</span></span></span><br><span class="line"><span class="tag">	@<span class="attr">click</span>=<span class="string">"submitRefundApplyHandle()"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">u-button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="script-js"><a href="#script-js" class="headerlink" title="script.js"></a>script.js</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">	<span class="keyword">import</span> refundApi <span class="keyword">from</span> <span class="string">'@/api/refund.js'</span></span></span><br><span class="line"><span class="javascript">	<span class="keyword">export</span> <span class="keyword">default</span>&#123;</span></span><br><span class="line">		data()&#123;</span><br><span class="line"><span class="actionscript">			<span class="keyword">return</span> &#123;</span></span><br><span class="line">				fileList:[],</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">submitRefundApplyHandle()&#123;</span><br><span class="line">	<span class="comment">// this.$refs.refRefundApplyForm.validate().then(res =&gt; &#123;</span></span><br><span class="line">	<span class="comment">// 	uni.$u.toast('校验通过')</span></span><br><span class="line">	<span class="comment">// &#125;).catch(errors =&gt; &#123;</span></span><br><span class="line">	<span class="comment">// 	uni.$u.toast('校验失败')</span></span><br><span class="line">	<span class="comment">// &#125;)</span></span><br><span class="line">	<span class="keyword">let</span> formObj = deepCopy(<span class="keyword">this</span>.refundApplyForm)</span><br><span class="line">	formObj.reasonType = <span class="keyword">this</span>.transf_reasonType[formObj.reasonType]</span><br><span class="line">	<span class="keyword">this</span>.applyRefundHandle(formObj)</span><br><span class="line">&#125;,</span><br><span class="line">applyRefundHandle(formObj)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'提交的表单：'</span>, formObj,<span class="keyword">this</span>.fileList)</span><br><span class="line">	<span class="keyword">const</span> arr_temp = []</span><br><span class="line">	<span class="keyword">this</span>.fileList.forEach(<span class="function">(<span class="params">item,index</span>) =&gt;</span> &#123;</span><br><span class="line">		arr_temp.push(&#123;<span class="attr">name</span>:<span class="string">'image'</span>+index,<span class="attr">uri</span>: item.url&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="comment">// formObj.annexFiles = this.fileList</span></span><br><span class="line">	<span class="keyword">let</span> requestLength = <span class="number">0</span></span><br><span class="line">	<span class="keyword">const</span> annexFileIds = []</span><br><span class="line">	arr_temp.forEach(<span class="function">(<span class="params">ele,index</span>) =&gt;</span> &#123;</span><br><span class="line">		refundApi.uploadRefundAnnexFile(arr_temp[index], <span class="string">'file'</span>).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">const</span> response = <span class="built_in">JSON</span>.parse(res)</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">'上传照片结果:'</span>,response)</span><br><span class="line">			<span class="keyword">if</span> (response.code === <span class="number">200</span>) &#123;</span><br><span class="line">				++requestLength</span><br><span class="line">				annexFileIds.push(response.data)</span><br><span class="line">				<span class="keyword">if</span>(requestLength===arr_temp.length)&#123;</span><br><span class="line">					formObj.annexFileIds = annexFileIds.join()</span><br><span class="line">					refundApi.createRefundApply(formObj).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">						<span class="built_in">console</span>.log(<span class="string">'提交申请结果:'</span>,res)</span><br><span class="line">						<span class="keyword">if</span> (res.code === <span class="number">200</span>) &#123;</span><br><span class="line">							<span class="comment">// 跳转到结果页</span></span><br><span class="line">							uni.reLaunch(&#123;</span><br><span class="line">								url: <span class="string">'/pages/my/refundApply/refundResult?pageMsg=申请成功，请等待人员审核'</span></span><br><span class="line">							&#125;);</span><br><span class="line">						&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">							uni.showToast(&#123;</span><br><span class="line">								title: res.msg,</span><br><span class="line">								icon: <span class="string">'none'</span>,</span><br><span class="line">								duration: <span class="number">5000</span>,</span><br><span class="line">							&#125;)</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除图片</span></span><br><span class="line">deletePic(event) &#123;</span><br><span class="line">	<span class="keyword">this</span>.fileList.splice(event.index, <span class="number">1</span>)</span><br><span class="line">&#125;,</span><br><span class="line">afterRead(event) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'照片地址:'</span>, event)</span><br><span class="line">	<span class="comment">// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式</span></span><br><span class="line">	<span class="keyword">let</span> lists = [].concat(event.file)</span><br><span class="line">	<span class="keyword">let</span> fileListLen = <span class="keyword">this</span>.fileList.length</span><br><span class="line">	lists.map(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">this</span>.fileList.push(&#123;</span><br><span class="line">			...item,</span><br><span class="line">			status: <span class="string">'uploading'</span>,</span><br><span class="line">			message: <span class="string">'上传中'</span></span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; lists.length; i++) &#123;</span><br><span class="line">		<span class="keyword">const</span> url = lists[i].url</span><br><span class="line">		<span class="keyword">let</span> item = <span class="keyword">this</span>.fileList[fileListLen]</span><br><span class="line">		<span class="keyword">this</span>.fileList.splice(fileListLen, <span class="number">1</span>, <span class="built_in">Object</span>.assign(item, &#123;</span><br><span class="line">			status: <span class="string">'success'</span>,</span><br><span class="line">			message: <span class="string">''</span>,</span><br><span class="line">			url: url</span><br><span class="line">		&#125;))</span><br><span class="line">		fileListLen++</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h5 id="config-request-js"><a href="#config-request-js" class="headerlink" title="config/request.js"></a>config/request.js</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uploadFile_common</span> (<span class="params">url, file, name, callback = <span class="string">''</span></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> token = uni.getStorageSync(<span class="string">'user_token'</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'拿到的参数：'</span>, url, file, name)</span><br><span class="line">        uni.uploadFile(&#123;</span><br><span class="line">			url: baseUrl + url,</span><br><span class="line">            header: &#123; <span class="string">'Authorization'</span>: <span class="string">'Bearer '</span> + token, <span class="string">'Content-Type'</span>: <span class="string">'multipart/form-data'</span> &#125;,</span><br><span class="line">			fileType:<span class="string">'image'</span>,</span><br><span class="line">            filePath: file.uri,</span><br><span class="line">            name: name,</span><br><span class="line">            success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">            &#125;,</span><br><span class="line">            fail: <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">                reject(err)</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'[上传接口错误:uploadFile_common:'</span>,err)</span><br><span class="line">            &#125;,</span><br><span class="line">            complete: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (callback)&#123;</span><br><span class="line">                	<span class="keyword">return</span> callback(res.data)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (res.data.code === <span class="number">401</span>) &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'上传接口401:uploadFile_common'</span>)</span><br><span class="line">					<span class="keyword">try</span> &#123;</span><br><span class="line">						uni.removeStorageSync(<span class="string">'user_token'</span>)</span><br><span class="line">					&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">						<span class="built_in">console</span>.log(<span class="string">'user_token移除失败(uploadFile_common)'</span>)</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="comment">// 将需要重新执行的接口缓存到一个队列中</span></span><br><span class="line">					addSubscriber(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">						uploadFile_common(url, file, name, formData, resolve)</span><br><span class="line">					&#125;)</span><br><span class="line">					<span class="keyword">if</span> (isRefreshing) &#123;</span><br><span class="line">						getNewToken().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">							<span class="comment">// 依次去执行缓存的接口</span></span><br><span class="line">							onAccessTokenFetched();</span><br><span class="line">							isRefreshing = <span class="literal">true</span>;</span><br><span class="line">						&#125;).catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">							<span class="built_in">console</span>.log(<span class="string">'getNewToken错误(uploadFile_common):'</span>, e)</span><br><span class="line">						&#125;)</span><br><span class="line">                   &#125;</span><br><span class="line">                   isRefreshing = <span class="literal">false</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    resolve(res.data)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; uploadFile_common &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="refund-js"><a href="#refund-js" class="headerlink" title="refund.js"></a>refund.js</h5><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;uploadFile_common&#125; <span class="keyword">from</span> <span class="string">'@/config/request.js'</span></span><br><span class="line">export <span class="keyword">default</span> &#123;</span><br><span class="line">	<span class="comment">// 上传申请照片</span></span><br><span class="line">	uploadRefundAnnexFile(<span class="keyword">file</span>, name) &#123;</span><br><span class="line">		<span class="keyword">return</span> uploadFile_common(<span class="string">'/wechat/selfPrint/refundApply/uploadRefundApplyAnnexFile'</span>, <span class="keyword">file</span>, name)</span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="refundResult-vue-上传成功后展示"><a href="#refundResult-vue-上传成功后展示" class="headerlink" title="refundResult.vue 上传成功后展示"></a>refundResult.vue 上传成功后展示</h5><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;<span class="name">view</span> &gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">u--image</span> <span class="attr">:showLoading</span>=<span class="string">"true"</span> <span class="attr">:src</span>=<span class="string">"require('static/img/my/submit.png')"</span> <span class="attr">width</span>=<span class="string">"500rpx"</span> <span class="attr">height</span>=<span class="string">"500rpx"</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;/<span class="name">u--image</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"text-style"</span>&gt;</span></span><span class="template-variable">&#123;&#123;message&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"mg30"</span>&gt;</span></span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;<span class="name">u-button</span> <span class="attr">type</span>=<span class="string">"primary"</span> <span class="attr">:plain</span>=<span class="string">"true"</span> <span class="attr">text</span>=<span class="string">"返回首页"</span></span></span></span><br><span class="line"><span class="xml">					@click="backHome()"&gt;</span></span><br><span class="line"><span class="xml">				<span class="tag">&lt;/<span class="name">u-button</span>&gt;</span></span></span><br><span class="line"><span class="xml">			<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">		<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml">	export default&#123;</span></span><br><span class="line"><span class="xml">		data()&#123;</span></span><br><span class="line"><span class="xml">			return&#123;</span></span><br><span class="line"><span class="xml">				message:''</span></span><br><span class="line"><span class="xml">			&#125;</span></span><br><span class="line"><span class="xml">		&#125;,</span></span><br><span class="line"><span class="xml">		onLoad:function(option)&#123;</span></span><br><span class="line"><span class="xml">			this.message = option.pageMsg</span></span><br><span class="line"><span class="xml">		&#125;,</span></span><br><span class="line"><span class="xml">		methods:&#123;</span></span><br><span class="line"><span class="xml">			backHome()&#123;</span></span><br><span class="line"><span class="xml">				uni.switchTab(&#123;</span></span><br><span class="line"><span class="xml">					url: '/pages/home/index'</span></span><br><span class="line"><span class="xml">				&#125;)</span></span><br><span class="line"><span class="xml">			&#125;,</span></span><br><span class="line"><span class="xml">		&#125;</span></span><br><span class="line"><span class="xml">	&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"scss"</span> <span class="attr">scoped</span>&gt;</span></span></span><br><span class="line"><span class="xml">	.content&#123;</span></span><br><span class="line"><span class="xml">		margin-top: 100rpx;</span></span><br><span class="line"><span class="xml">		padding: 30rpx;</span></span><br><span class="line"><span class="xml">		display: flex;</span></span><br><span class="line"><span class="xml">		justify-content: center;;</span></span><br><span class="line"><span class="xml">	&#125;</span></span><br><span class="line"><span class="xml">	.text-style&#123;</span></span><br><span class="line"><span class="xml">		color: #aaa;</span></span><br><span class="line"><span class="xml">		text-align: center;</span></span><br><span class="line"><span class="xml">	&#125;</span></span><br><span class="line"><span class="xml">	.mg30&#123;</span></span><br><span class="line"><span class="xml">		margin-top: 30rpx;</span></span><br><span class="line"><span class="xml">	&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/移动端/">移动端</a>
+		  
+			<a href="/tags/uniapp/">uniapp</a>
+		  
+			<a href="/tags/微信小程序/">微信小程序</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2022/07/01/计算请假小时的时长/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">计算请假小时的时长</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2021/05/09/Taro使用笔记/">
+        <span class="next-text nav-default">Taro使用笔记</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2022
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
