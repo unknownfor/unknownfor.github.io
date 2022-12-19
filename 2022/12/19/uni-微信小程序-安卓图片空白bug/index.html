@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="uni+微信小程序 安卓图片空白bug">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2022/12/19/uni-微信小程序-安卓图片空白bug/">
+
+
+<meta name="description" content="一个超级无语的bug，&amp;lt;image&amp;gt;标签渲染图片，后端给的文件url，是不带诸如.png、.jpg等附件名称后缀的地址，直接返回了https://xx.filename的文件路径，在iOS和模拟器上能正常读取照片，在安卓上就会展示空白 起初以为是没有把图片的https加入小程序配置的合法域名，最后的解决方案，是把后端给的url图转换base64才行 哎这个坑痛心疾首，记录下 实现效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uni+微信小程序 安卓图片空白bug">
+<meta property="og:url" content="http://unknownfor.github.io/2022/12/19/uni-微信小程序-安卓图片空白bug/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="一个超级无语的bug，&amp;lt;image&amp;gt;标签渲染图片，后端给的文件url，是不带诸如.png、.jpg等附件名称后缀的地址，直接返回了https://xx.filename的文件路径，在iOS和模拟器上能正常读取照片，在安卓上就会展示空白 起初以为是没有把图片的https加入小程序配置的合法域名，最后的解决方案，是把后端给的url图转换base64才行 哎这个坑痛心疾首，记录下 实现效果">
+<meta property="og:locale" content="ch">
+<meta property="og:image" content="https://img.yasuotu.com/uploads/2022/12/19/639fc59d28cbb_639fc59d46aee.gif">
+<meta property="og:updated_time" content="2022-12-19T02:01:18.705Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uni+微信小程序 安卓图片空白bug">
+<meta name="twitter:description" content="一个超级无语的bug，&amp;lt;image&amp;gt;标签渲染图片，后端给的文件url，是不带诸如.png、.jpg等附件名称后缀的地址，直接返回了https://xx.filename的文件路径，在iOS和模拟器上能正常读取照片，在安卓上就会展示空白 起初以为是没有把图片的https加入小程序配置的合法域名，最后的解决方案，是把后端给的url图转换base64才行 哎这个坑痛心疾首，记录下 实现效果">
+<meta name="twitter:image" content="https://img.yasuotu.com/uploads/2022/12/19/639fc59d28cbb_639fc59d46aee.gif">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> uni+微信小程序 安卓图片空白bug - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          uni+微信小程序 安卓图片空白bug
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 19 2022
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>一个超级无语的bug，<code>&lt;image&gt;</code>标签渲染图片，后端给的文件url，是不带诸如.png、.jpg等附件名称后缀的地址，直接返回了<code>https://xx.filename</code>的文件路径，在iOS和模拟器上能正常读取照片，在安卓上就会展示空白</p>
+<p>起初以为是没有把图片的https加入小程序配置的合法域名，<br>最后的解决方案，是把后端给的url图转换<code>base64</code>才行</p>
+<p>哎这个坑痛心疾首，记录下</p>
+<h4 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h4><p><img src="https://img.yasuotu.com/uploads/2022/12/19/639fc59d28cbb_639fc59d46aee.gif" alt="哈哈"></p>
+<h4 id="图片上传公共方法"><a href="#图片上传公共方法" class="headerlink" title="图片上传公共方法"></a>图片上传公共方法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本地选择的图片 - 转化为base64</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>file uni.choseImage后拿到的path数组的第一个</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">setBase64</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    uni.getFileSystemManager().readFile(&#123;</span><br><span class="line">      filePath: file,</span><br><span class="line">      encoding: <span class="string">'base64'</span>,</span><br><span class="line">      success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        resolve(res);</span><br><span class="line">      &#125;,</span><br><span class="line">      fail: <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">        reject(e.msg);</span><br><span class="line">        uni.$u.toast(<span class="string">'图片转换失败'</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="安卓专用图片转换方法"><a href="#安卓专用图片转换方法" class="headerlink" title="安卓专用图片转换方法"></a>安卓专用图片转换方法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 网络图 转换为base64格式</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> <span class="variable">url</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns </span>base64 file</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">fileStreamturn</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    uni.request(&#123;</span><br><span class="line">      url: url,</span><br><span class="line">      method: <span class="string">'GET'</span>,</span><br><span class="line">      responseType: <span class="string">'arraybuffer'</span>,</span><br><span class="line">      header: &#123;</span><br><span class="line">        Authorization: uni.getStorageSync(<span class="string">'token'</span>),</span><br><span class="line">        <span class="comment">// Authorization: token</span></span><br><span class="line">      &#125;,</span><br><span class="line">      success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> datas = res.data;</span><br><span class="line">        <span class="keyword">let</span> fileName = url.slice(url.indexOf(<span class="string">'.'</span>) + <span class="number">1</span>);</span><br><span class="line">        resolve(</span><br><span class="line">          <span class="string">`data:image/<span class="subst">$&#123;fileName&#125;</span>;base64,`</span> + uni.arrayBufferToBase64(datas),</span><br><span class="line">        );</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>因为会出现多个<code>&lt;image&gt;</code>标签，同时转化<code>base64</code>有较长的等待时，所以做了当前设备判断，如果是安卓才会调用转换方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [</span><br><span class="line"> <span class="string">'https://xxx.filename1'</span>,</span><br><span class="line"> <span class="string">'https://xxx.filename2'</span>,</span><br><span class="line"> <span class="string">'https://xxx.filename3'</span>,</span><br><span class="line"> ...</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">    <span class="comment">//安卓设备 - 处理图片数组</span></span><br><span class="line">    handleImage(arr) &#123;</span><br><span class="line">      <span class="keyword">let</span> result = [];</span><br><span class="line">      <span class="keyword">if</span> (arr &amp;&amp; arr.length) &#123;</span><br><span class="line">        <span class="keyword">if</span> (uni.getSystemInfoSync().platform == <span class="string">"android"</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> base64 = [];</span><br><span class="line">          arr.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">            fileStreamturn(item).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">              base64.push(res);</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;);</span><br><span class="line">          result = base64;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          result = arr;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2022/12/16/uni-微信小程序-按照速度区分颜色的轨迹图/">
+        <span class="next-text nav-default">uni+微信小程序 按照速度区分颜色的轨迹图</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2022
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
