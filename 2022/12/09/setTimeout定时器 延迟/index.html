@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="setTimeout定时器 延迟bug">
+
+
+
+
+  <meta name="keywords" content="微信小程序,uniapp,移动端,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2022/12/09/setTimeout定时器 延迟/">
+
+
+<meta name="description" content="问题线上遇到bug，写了定时器，展示打卡时间读秒，结果定时器越跑延迟越大，用setTimeout fix了。记录下 12345678910111213//timeRange为定时器时间间隔var startTime = new Date().getTime();var count = 0;function handle () &amp;#123;     count++;     var offset =">
+<meta name="keywords" content="微信小程序,uniapp,移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="setTimeout定时器 延迟bug">
+<meta property="og:url" content="http://unknownfor.github.io/2022/12/09/setTimeout定时器 延迟/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="问题线上遇到bug，写了定时器，展示打卡时间读秒，结果定时器越跑延迟越大，用setTimeout fix了。记录下 12345678910111213//timeRange为定时器时间间隔var startTime = new Date().getTime();var count = 0;function handle () &amp;#123;     count++;     var offset =">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2023-02-09T08:39:43.326Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="setTimeout定时器 延迟bug">
+<meta name="twitter:description" content="问题线上遇到bug，写了定时器，展示打卡时间读秒，结果定时器越跑延迟越大，用setTimeout fix了。记录下 12345678910111213//timeRange为定时器时间间隔var startTime = new Date().getTime();var count = 0;function handle () &amp;#123;     count++;     var offset =">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> setTimeout定时器 延迟bug - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          setTimeout定时器 延迟bug
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 09 2022
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>线上遇到bug，写了定时器，展示打卡时间读秒，结果定时器越跑延迟越大，用setTimeout fix了。记录下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//timeRange为定时器时间间隔</span></span><br><span class="line"><span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">     count++;</span><br><span class="line">     <span class="keyword">var</span> offset = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() - (startTime + count * timeRange);</span><br><span class="line">     <span class="keyword">var</span> nextTime = timeRange - offset;</span><br><span class="line">     <span class="keyword">if</span> (nextTime &lt; <span class="number">0</span>) nextTime = <span class="number">0</span>;</span><br><span class="line">     timer = setTimeout(handle, nextTime);</span><br><span class="line">     totalDiatane += distanceBlock</span><br><span class="line">     <span class="built_in">document</span>.getElementById(<span class="string">'distance'</span>).innerText = totalDiatane.toFixed(<span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line">timer = setTimeout(handle, timeRange);</span><br></pre></td></tr></table></figure>
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/微信小程序/">微信小程序</a>
+		  
+			<a href="/tags/uniapp/">uniapp</a>
+		  
+			<a href="/tags/移动端/">移动端</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2022/12/09/uni-微信小程序-分包/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">uni-微信小程序 分包</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2022/11/09/vue3-0-ts-原生高德地图/">
+        <span class="next-text nav-default">vue3.0+ts+原生高德地图</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2023
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>

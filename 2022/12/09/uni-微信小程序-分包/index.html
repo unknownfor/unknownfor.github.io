@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="uni-微信小程序 分包">
+
+
+
+
+  <meta name="keywords" content="微信小程序,uniapp,移动端,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2022/12/09/uni-微信小程序-分包/">
+
+
+<meta name="description" content="提前拆分模块任务，把主包压缩小点，UI设计给了太多本地资源静态图，所以需要连图也一起分包，记录下 · 整个小程序所有分包大小不超过 20M· 单个分包/主包大小不能超过 2M 结果静态资源生成路径 123/mp-weixin/pages_tools/pages // 分包代码/mp-weixin/pages_tools/static // 分包静态资源 vue.config.js123456789">
+<meta name="keywords" content="微信小程序,uniapp,移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uni-微信小程序 分包">
+<meta property="og:url" content="http://unknownfor.github.io/2022/12/09/uni-微信小程序-分包/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="提前拆分模块任务，把主包压缩小点，UI设计给了太多本地资源静态图，所以需要连图也一起分包，记录下 · 整个小程序所有分包大小不超过 20M· 单个分包/主包大小不能超过 2M 结果静态资源生成路径 123/mp-weixin/pages_tools/pages // 分包代码/mp-weixin/pages_tools/static // 分包静态资源 vue.config.js123456789">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2023-02-09T09:06:27.575Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uni-微信小程序 分包">
+<meta name="twitter:description" content="提前拆分模块任务，把主包压缩小点，UI设计给了太多本地资源静态图，所以需要连图也一起分包，记录下 · 整个小程序所有分包大小不超过 20M· 单个分包/主包大小不能超过 2M 结果静态资源生成路径 123/mp-weixin/pages_tools/pages // 分包代码/mp-weixin/pages_tools/static // 分包静态资源 vue.config.js123456789">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> uni-微信小程序 分包 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          uni-微信小程序 分包
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 09 2022
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>提前拆分模块任务，把主包压缩小点，UI设计给了太多本地资源静态图，所以需要连图也一起分包，记录下</p>
+<p>· 整个小程序所有分包大小不超过 20M<br>· 单个分包/主包大小不能超过 2M</p>
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><p>静态资源生成路径</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta-keyword">/mp-weixin/</span>pages_tools/pages <span class="comment">// 分包代码</span></span><br><span class="line"></span><br><span class="line"><span class="meta-keyword">/mp-weixin/</span>pages_tools/static <span class="comment">// 分包静态资源</span></span><br></pre></td></tr></table></figure>
+<h4 id="vue-config-js"><a href="#vue-config-js" class="headerlink" title="vue.config.js"></a>vue.config.js</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> CopyWebpackPlugin = <span class="built_in">require</span>(<span class="string">'copy-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  configureWebpack: &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">       <span class="keyword">new</span> webpack.ContextReplacementPlugin(</span><br><span class="line">        /zh-cn/,</span><br><span class="line">      ),</span><br><span class="line">      <span class="keyword">new</span> CopyWebpackPlugin([</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">from</span>: path.join(__dirname, <span class="string">'/static'</span>),</span><br><span class="line">          to: path.join(__dirname+<span class="string">'/unpackage/'</span>, <span class="string">'dist'</span>, process.env.NODE_ENV === <span class="string">'production'</span> ? <span class="string">'build'</span> : <span class="string">'dev'</span>, process.env.UNI_PLATFORM, <span class="string">'/'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      ])</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="根目录执行命令"><a href="#根目录执行命令" class="headerlink" title="根目录执行命令"></a>根目录执行命令</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> copy-webpack-<span class="keyword">plugin</span> <span class="comment">--save-dev</span></span><br></pre></td></tr></table></figure>
+<h4 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">"mp-weixin":</span> <span class="string">&#123;</span>    </span><br><span class="line">      <span class="attr">"usingComponents":</span> <span class="literal">true</span></span><br><span class="line">  <span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="pages-json"><a href="#pages-json" class="headerlink" title="pages.json"></a>pages.json</h4><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"subPackages"</span>: [</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">"root"</span>: <span class="string">"pages_index"</span>, <span class="comment">// 首页</span></span><br><span class="line">     <span class="string">"pages"</span>: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="string">"path"</span>: <span class="string">"index"</span>,</span><br><span class="line">         <span class="string">"style"</span>: &#123;</span><br><span class="line">           <span class="string">"navigationStyle"</span>: <span class="string">"custom"</span></span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     ]</span><br><span class="line">   &#125;,</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">"root"</span>: <span class="string">"pages_tools"</span>, <span class="comment">// 工具</span></span><br><span class="line">     <span class="string">"pages"</span>: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="string">"path"</span>: <span class="string">"test/index"</span>,</span><br><span class="line">         <span class="string">"style"</span>: &#123;</span><br><span class="line">           <span class="string">"navigationBarTitleText"</span>: <span class="string">"uni-app"</span></span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;，</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="string">"root"</span>: <span class="string">"pages_salary"</span>, <span class="comment">// 工资</span></span><br><span class="line">     <span class="string">"pages"</span>: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="string">"path"</span>: <span class="string">"test/index"</span>,</span><br><span class="line">         <span class="string">"style"</span>: &#123;</span><br><span class="line">           <span class="string">"navigationBarTitleText"</span>: <span class="string">"uni-app"</span></span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>图片资源分包，文件夹取名也需要对应<code>pages.json</code>下的文件夹命名</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/pages_tools/</span><span class="keyword">static</span>/images</span><br><span class="line"><span class="comment">// 放图片的文件夹，用于放分包图片资源，需要和分包名称对应</span></span><br></pre></td></tr></table></figure>
+<p>在index.vue内引入图片路径：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="built_in">image</span> src=<span class="string">"/pages_tools/static/images/test.svg"</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/微信小程序/">微信小程序</a>
+		  
+			<a href="/tags/uniapp/">uniapp</a>
+		  
+			<a href="/tags/移动端/">移动端</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2022/12/16/uni-微信小程序-按照速度区分颜色的轨迹图/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">uni+微信小程序 按照速度区分颜色的轨迹图</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2022/12/09/setTimeout定时器 延迟/">
+        <span class="next-text nav-default">setTimeout定时器 延迟bug</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2023
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="uni-小程序 环境变量配置">
+
+
+
+
+  <meta name="keywords" content="微信小程序,uniapp,移动端,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2022/05/09/小程序-环境变量配置/">
+
+
+<meta name="description" content="小程序环境变量配置，区分开发、体验、线上 封装__wxConfig.envVersion，main.js中引入注册，全局使用； 和后端约定了在请求header里除了token，还要加上requestId,为随机生成40位的字母，数字，-，三种,最后一位默认为4，为小程序标识 注意1234567891011121314151617181920let REQUEST_URL = &quot;&quot;;function">
+<meta name="keywords" content="微信小程序,uniapp,移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uni-小程序 环境变量配置">
+<meta property="og:url" content="http://unknownfor.github.io/2022/05/09/小程序-环境变量配置/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="小程序环境变量配置，区分开发、体验、线上 封装__wxConfig.envVersion，main.js中引入注册，全局使用； 和后端约定了在请求header里除了token，还要加上requestId,为随机生成40位的字母，数字，-，三种,最后一位默认为4，为小程序标识 注意1234567891011121314151617181920let REQUEST_URL = &quot;&quot;;function">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2023-02-09T08:23:50.622Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uni-小程序 环境变量配置">
+<meta name="twitter:description" content="小程序环境变量配置，区分开发、体验、线上 封装__wxConfig.envVersion，main.js中引入注册，全局使用； 和后端约定了在请求header里除了token，还要加上requestId,为随机生成40位的字母，数字，-，三种,最后一位默认为4，为小程序标识 注意1234567891011121314151617181920let REQUEST_URL = &quot;&quot;;function">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> uni-小程序 环境变量配置 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          uni-小程序 环境变量配置
+        
+      </h1>
+
+      <time class="post-time">
+          May 09 2022
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>小程序环境变量配置，区分开发、体验、线上</p>
+<p>封装__wxConfig.envVersion，main.js中引入注册，全局使用；</p>
+<p>和后端约定了在请求<code>header</code>里除了<code>token</code>，还要加上<code>requestId</code>,为随机生成40位的字母，数字，-，三种,最后一位默认为4，为小程序标识</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> REQUEST_URL = <span class="string">""</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">baseUrl</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> envVersion = __wxConfig.envVersion;</span><br><span class="line">	<span class="keyword">switch</span> (envVersion) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'develop'</span>:</span><br><span class="line">			REQUEST_URL =<span class="string">"http://xxxx.com"</span>; <span class="comment">//开发版</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'trial'</span>:</span><br><span class="line">			REQUEST_URL = <span class="string">"http://xxxx.com"</span>; <span class="comment">//体验版</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'release'</span>:</span><br><span class="line">			REQUEST_URL = <span class="string">"https://xxxx.com"</span>; <span class="comment">//正式版</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			REQUEST_URL = <span class="string">"正式域名地址"</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> REQUEST_URL;</span><br><span class="line">&#125;</span><br><span class="line">baseUrl()</span><br></pre></td></tr></table></figure>
+<h4 id="request公共方法"><a href="#request公共方法" class="headerlink" title="request公共方法"></a>request公共方法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> randomString = <span class="function">(<span class="params">length</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> str = <span class="string">'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-'</span>;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = length; i &gt; <span class="number">0</span>; --i) &#123; result += str[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * str.length)] &#125;</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getHeader = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> token = uni.getStorageSync(<span class="string">'token'</span>) || <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    token,</span><br><span class="line">    <span class="string">'Content-type'</span>: <span class="string">'application/json;charset=UTF-8'</span>,</span><br><span class="line">    <span class="string">'requestId'</span>: randomString(<span class="number">39</span>) + <span class="string">'4'</span> <span class="comment">// 随机生成40位的字母，数字，-，三种,最后一位默认为4，为小程序标识</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/微信小程序/">微信小程序</a>
+		  
+			<a href="/tags/uniapp/">uniapp</a>
+		  
+			<a href="/tags/移动端/">移动端</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2022/05/17/uni-微信小程序-上传多张图片/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">uni+微信小程序 上传多张图片</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2021/05/09/Taro使用笔记/">
+        <span class="next-text nav-default">Taro使用笔记</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2023
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
