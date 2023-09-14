@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="Promise控制请求并发次数">
+
+
+
+
+  <meta name="keywords" content="工作笔记,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="Cholesterol">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.5">
+
+
+
+<link rel="canonical" href="http://unknownfor.github.io/2023/03/01/Promise控制请求并发次数/">
+
+
+<meta name="description" content="背景接手了一个老项目，启动后首页打开请求三十几个接口，人都崩溃。只能想办法写promise优化下，现在基本上前端项目都是通过axios来实现异步请求的封装，异步编程。 明确概念这里有几个概念需要明确一下  并发：并发是多个任务同时交替的执行（因为cpu执行指令的速度非常之快，它可以不必按顺序一段代码一段代码的执行，这样效率反而更加低下），这样看起来就是一起执行的，所以叫并发。 并行：可以理解为多个">
+<meta name="keywords" content="工作笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise控制请求并发次数">
+<meta property="og:url" content="http://unknownfor.github.io/2023/03/01/Promise控制请求并发次数/index.html">
+<meta property="og:site_name" content="Cholesterol">
+<meta property="og:description" content="背景接手了一个老项目，启动后首页打开请求三十几个接口，人都崩溃。只能想办法写promise优化下，现在基本上前端项目都是通过axios来实现异步请求的封装，异步编程。 明确概念这里有几个概念需要明确一下  并发：并发是多个任务同时交替的执行（因为cpu执行指令的速度非常之快，它可以不必按顺序一段代码一段代码的执行，这样效率反而更加低下），这样看起来就是一起执行的，所以叫并发。 并行：可以理解为多个">
+<meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2023-09-14T03:05:00.078Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Promise控制请求并发次数">
+<meta name="twitter:description" content="背景接手了一个老项目，启动后首页打开请求三十几个接口，人都崩溃。只能想办法写promise优化下，现在基本上前端项目都是通过axios来实现异步请求的封装，异步编程。 明确概念这里有几个概念需要明确一下  并发：并发是多个任务同时交替的执行（因为cpu执行指令的速度非常之快，它可以不必按顺序一段代码一段代码的执行，这样效率反而更加低下），这样看起来就是一起执行的，所以叫并发。 并行：可以理解为多个">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.5">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Promise控制请求并发次数 - Cholesterol </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Cholesterol</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Promise控制请求并发次数
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 01 2023
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>接手了一个老项目，启动后首页打开请求三十几个接口，人都崩溃。只能想办法写promise优化下，现在基本上前端项目都是通过axios来实现异步请求的封装，异步编程。</p>
+<h4 id="明确概念"><a href="#明确概念" class="headerlink" title="明确概念"></a>明确概念</h4><p>这里有几个概念需要明确一下</p>
+<ul>
+<li>并发：并发是多个任务同时交替的执行（因为cpu执行指令的速度非常之快，它可以不必按顺序一段代码一段代码的执行，这样效率反而更加低下），这样看起来就是一起执行的，所以叫并发。</li>
+<li>并行：可以理解为多个物理cpu或者有分布式系统，是真正的’同时’执行</li>
+<li>并发控制：意思是多个并发的任务，一旦有任务完成，就立刻开启下一个任务</li>
+<li>切片控制：将并发任务切片的分配出来，比如10个任务，切成2个片，每片有5个任务，当前一片的任务执行完毕，再开始下一个片的任务，这样明显效率没并发控制那么高了</li>
+</ul>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>首先执行能执行的并发任务，根据并发的概念，每个任务执行完毕后，捞起下一个要执行的任务。</p>
+<p>将关键步骤拆分出合适的函数来组织代码</p>
+<ol>
+<li>循环去启动能执行的任务</li>
+<li>取出任务并且推到执行器执行</li>
+<li>执行器内更新当前的并发数，并且触发捞起任务</li>
+<li>捞起任务里面可以触发最终的回调函数和调起执行器继续执行任务</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设计一个函数，可以限制请求的并发，同时请求结束之后，调用callback函数</span></span><br><span class="line"><span class="comment">// sendRequest(requestList:,limits,callback):void</span></span><br><span class="line">sendRequest(</span><br><span class="line"></span><br><span class="line">    [<span class="function"><span class="params">()</span> =&gt;</span> request(<span class="string">'1'</span>),</span><br><span class="line"></span><br><span class="line">    () =&gt; request(<span class="string">'2'</span>),</span><br><span class="line"></span><br><span class="line">    () =&gt; request(<span class="string">'3'</span>),</span><br><span class="line"></span><br><span class="line">    () =&gt; request(<span class="string">'4'</span>)],</span><br><span class="line"></span><br><span class="line">    <span class="number">3</span>, <span class="comment">//并发数</span></span><br><span class="line"></span><br><span class="line">    (res) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">console</span>.log(res)</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 其中request 可以是： </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">url, time = 1</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'请求结束：'</span> + url);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">Math</span>.random() &gt; <span class="number">0.5</span>) &#123;</span><br><span class="line"></span><br><span class="line">                resolve(<span class="string">'成功'</span>)</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">                reject(<span class="string">'错误;'</span>)</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;, time * <span class="number">1e3</span>)</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">sendRequest</span>(<span class="params">requestList,limits,callback</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 维护一个promise队列</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> promises = []</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前的并发池,用Set结构方便删除</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> pool = <span class="keyword">new</span> <span class="built_in">Set</span>() <span class="comment">// set也是Iterable&lt;any&gt;[]类型，因此可以放入到race里</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 开始并发执行所有的任务</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> request <span class="keyword">of</span> requestList)&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始执行前，先await 判断 当前的并发任务是否超过限制</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(pool.size &gt;= limits)&#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 这里因为没有try catch ，所以要捕获一下错误，不然影响下面微任务的执行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">await</span> <span class="built_in">Promise</span>.race(pool)</span><br><span class="line"></span><br><span class="line">            .catch(<span class="function"><span class="params">err</span>=&gt;</span>err)</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> promise = request()<span class="comment">// 拿到promise</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除请求结束后，从pool里面移除</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> cb = <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">            pool.delete(promise)</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 注册下then的任务</span></span><br><span class="line"></span><br><span class="line">        promise.then(cb,cb)</span><br><span class="line"></span><br><span class="line">        pool.add(promise)</span><br><span class="line"></span><br><span class="line">        promises.push(promise)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等最后一个for await 结束，这里是属于最后一个 await 后面的 微任务</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注意这里其实是在微任务当中了，当前的promises里面是能确保所有的promise都在其中(前提是await那里命中了if)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="built_in">Promise</span>.allSettled(promises).then(callback,callback)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/工作笔记/">工作笔记</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2023/02/28/新官网踩坑笔记/">
+        <span class="next-text nav-default">新官网踩坑笔记</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2016 -
+    
+    2023
+    <span class="footer-author">胆固醇</span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.5"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.5"></script>
+
+  </body>
+</html>
